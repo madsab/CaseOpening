@@ -1,11 +1,11 @@
-package weapons;
+package java.weapons;
 
-public class WeaponTemplate {
+public class GunTemplate {
     private double fireRate;
     private int magazineSize;
 
     public void fire(){
-
+        
     }
     public void reload(){
 
