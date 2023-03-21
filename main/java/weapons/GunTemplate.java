@@ -1,4 +1,4 @@
-package java.weapons;
+package weapons;
 
 public class GunTemplate {
     private double fireRate;

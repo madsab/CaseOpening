@@ -1,4 +1,4 @@
-package java.profile;
+package profile;
 
 public class User {
     private String username;
@@ -20,4 +20,5 @@ public class User {
     public int getKeys() {
         return keys;
     }
+    
 }
