@@ -1,4 +1,4 @@
-package weapons;
+package CaseOpening.weapons;
 
 public class GunTemplate {
     private double fireRate;

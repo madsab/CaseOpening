@@ -1,4 +1,4 @@
-package profile;
+package CaseOpening.profile;
 
 public class User {
     private String username;
