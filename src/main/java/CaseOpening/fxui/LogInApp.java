@@ -1,4 +1,4 @@
-package CaseOpening.ui;
+package CaseOpening.fxui;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -7,14 +7,14 @@ import javafx.fxml.FXMLLoader;
 public class LogInApp extends Application{
 
     @Override
-    public void start(final Stage primaryStage) throws Exception {
-        primaryStage.setTitle("My App");
-        primaryStage.setScene(FXMLLoader.load(LogInApp.class.getResource("loggInPage.fxml")));
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("CS:MO");
+        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("loggInPage.fxml"))));
         primaryStage.show();
     }
 
     public static void main(String[] args) {
-        LogInApp.launch(args);
+        LogInApp.launch(LogInApp.class, args);
     }
      
 }

@@ -1,13 +1,14 @@
 package CaseOpening.profile;
 
+
+
 public class User {
     private String username;
     private String password;
     private int keys;
 
     public User(String username, String password){
-        this.username = username;
-        this.password = password;
+        
     }
 
     public String getPassword() {
@@ -20,5 +21,5 @@ public class User {
     public int getKeys() {
         return keys;
     }
-    
+ 
 }
