@@ -61,6 +61,23 @@ public class User {
         this.aqquiredWeapons.add(weapon);
     }
 
+    public void addKeys(int amount){
+        if(amount < 0){
+            throw new IllegalArgumentException("Can't be negative amount");
+        }
+        this.keys += amount;
+    }
+
+    public void removeKeys(int amount){
+        if(amount < 0){
+            throw new IllegalArgumentException("Can't have negative amount");
+        }
+        else if (this.keys - amount < 0){
+            throw new IllegalStateException("Can't remove more keys than you have");
+        }
+        this.keys -= amount;
+    }
+
     /*
      * Private validate methods
      */
@@ -75,7 +92,4 @@ public class User {
         return !username.matches("^.*['§*!#$%&/()=?+0-9]");
     }
 
-    public static void main(String[] args) {
-        User user = new User("Jon", "Hallo9");
-    }
 }
