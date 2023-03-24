@@ -12,6 +12,7 @@ public class UserTest {
     @Test
     public void testConstructor(){
         assertThrows(IllegalArgumentException.class, () -> new User(null, null));
+        
         User validUser = new User("GeirKL", "Mongo123");
         
     }
