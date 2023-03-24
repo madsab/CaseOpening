@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,7 +17,27 @@
             <BoxBlur />
          </effect>
       </ImageView>
-      <Pane layoutX="-9.0" layoutY="-5.0" opacity="0.63" prefHeight="406.0" prefWidth="72.0" style="-fx-background-color: black;" />
+      <Pane layoutX="-9.0" layoutY="-5.0" opacity="0.63" prefHeight="406.0" prefWidth="72.0" style="-fx-background-color: black;">
+         <children>
+            <Button fx:id="caseButton" layoutX="13.0" layoutY="21.0" mnemonicParsing="false" onAction="#showCaseOpening" style="-fx-background-color: none;">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:/Users/lottekvalheim/Documents/MADS/Prosjekt_Java/CaseOpening/images/case_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="shootingRangeButton" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#toShootingRange" style="-fx-background-color: none;">
+               <graphic>
+                  <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:/Users/lottekvalheim/Documents/MADS/Prosjekt_Java/CaseOpening/images/shootingRange_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children></Pane>
       <Pane layoutX="76.0" layoutY="14.0" opacity="0.63" prefHeight="198.0" prefWidth="298.0" style="-fx-background-color: black;">
          <effect>
             <BoxBlur height="2.0" width="0.0" />
