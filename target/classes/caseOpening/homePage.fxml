@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caseOpening.fxui.homePageController">
+   <children>
+      <ImageView fitHeight="401.0" fitWidth="709.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="file:/Users/lottekvalheim/Documents/MADS/Prosjekt_Java/CaseOpening/images/csgo_nuke_background.jpg" />
+         </image>
+         <effect>
+            <BoxBlur />
+         </effect>
+      </ImageView>
+      <Pane layoutX="-9.0" layoutY="-5.0" opacity="0.63" prefHeight="406.0" prefWidth="72.0" style="-fx-background-color: black;" />
+      <Pane layoutX="76.0" layoutY="14.0" opacity="0.63" prefHeight="198.0" prefWidth="298.0" style="-fx-background-color: black;">
+         <effect>
+            <BoxBlur height="2.0" width="0.0" />
+         </effect>
+      </Pane>
+      <ImageView fitHeight="378.0" fitWidth="232.0" layoutX="435.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="file:/Users/lottekvalheim/Documents/MADS/Prosjekt_Java/CaseOpening/images/soldier_standAnimation_lobby.gif" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
