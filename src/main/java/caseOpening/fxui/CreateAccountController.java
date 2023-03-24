@@ -11,21 +11,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LogInController {
-    @FXML private TextField username, password;
-    
+public class CreateAccountController {
+    @FXML private TextField createdUsername, createdPassword;
+
     @FXML
-    public void onLogIn(){
-        System.out.println("Lol");
+    public void createNewAccount(){
+        
     }
 
     @FXML
-    public void createAccount(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("caseOpening/createAccount.fxml"));
+    public void toLoginPage(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("caseOpening/logIn.fxml"));
         Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        
     }
 }
