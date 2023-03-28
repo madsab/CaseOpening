@@ -46,7 +46,7 @@ public class Weapons {
      */
     public Image getImage() throws IOException{
         //Gets bytes from image file and makes new image for imageView
-        InputStream stream = new FileInputStream("file:/Users/lottekvalheim/Documents/MADS/Prosjekt_Java/CaseOpening/images/" + this.weaponImage);
+        InputStream stream = new FileInputStream("/Users/lottekvalheim/Documents/MADS/Prosjekt_Java/CaseOpening/images/" + this.weaponImage);
         Image wImage = new Image(stream);
         return wImage;
     }
