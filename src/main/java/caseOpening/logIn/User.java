@@ -20,6 +20,7 @@ public class User {
         }
         this.setUsername(username);
         this.setPassword(password);
+        this.keys = 5;
     }
 
     /*
