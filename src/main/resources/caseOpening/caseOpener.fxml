@@ -28,19 +28,19 @@
             <DropShadow />
          </effect>
       </Button>
-      <Pane layoutX="1.0" layoutY="114.0" prefHeight="137.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-border-color: gray;">
+      <Pane layoutX="-291.0" layoutY="114.0" prefHeight="137.0" prefWidth="1185.0" style="-fx-background-color: transparent; -fx-border-color: gray;">
          <children>
-            <ImageView fitHeight="137.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="showCaseWeapon2" fitHeight="137.0" fitWidth="209.0" layoutX="283.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/weapons-AK47Rebel.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="137.0" fitWidth="209.0" layoutX="392.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="showCaseWeapon4" fitHeight="137.0" fitWidth="209.0" layoutX="679.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/weapons-AK47Rebel.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="137.0" fitWidth="209.0" layoutX="196.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="showCaseWeapon3" fitHeight="137.0" fitWidth="209.0" layoutX="483.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/weapons-AK47Rebel.jpg" />
                </image>
