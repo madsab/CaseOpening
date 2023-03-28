@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2a353b;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2a353b;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caseOpening.fxui.CaseOpenerController">
    <children>
       <ImageView fitHeight="229.0" fitWidth="209.0" layoutX="202.0" layoutY="59.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -28,8 +28,9 @@
             <DropShadow />
          </effect>
       </Button>
-      <Pane layoutX="-291.0" layoutY="114.0" prefHeight="137.0" prefWidth="1185.0" style="-fx-background-color: transparent; -fx-border-color: gray;">
+      <Pane layoutX="-291.0" layoutY="114.0" prefHeight="137.0" prefWidth="1144.0" style="-fx-background-color: transparent; -fx-border-color: gray;">
          <children>
+            <ImageView fx:id="showCaseWeapon1" fitHeight="150.0" fitWidth="200.0" layoutX="92.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="showCaseWeapon2" fitHeight="137.0" fitWidth="209.0" layoutX="283.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/weapons-AK47Rebel.jpg" />
