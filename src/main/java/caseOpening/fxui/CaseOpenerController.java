@@ -20,8 +20,8 @@ public class CaseOpenerController implements Initializable {
 
     @FXML
     public void spinCase(){
-        CaseSpinner caseSpinner = new CaseSpinner(goldenCase,10,showCaseWeapon1,showCaseWeapon2,showCaseWeapon3,showCaseWeapon4, showCaseWeapon5);
-        caseSpinner.spinCase();
+        CaseSpinner caseSpinner = new CaseSpinner(goldenCase,showCaseWeapon1,showCaseWeapon2,showCaseWeapon3,showCaseWeapon4, showCaseWeapon5);
+        caseSpinner.spinCase(10);
     }
 
     @Override
