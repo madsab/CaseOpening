@@ -1,20 +1,28 @@
 package caseOpening.fxui;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class homePageController {
+public class homePageController implements Initializable{
     @FXML private Button shootingRangeButton, caseButton;
+    @FXML private ImageView lobbyCharacter, caseIcon, shootingRangeIcon, homePageBackground;
     @FXML private Label homePageInfo;
     @FXML private Button startAssignmentButton;
     private String ShootingRangeInfo = "Test your weapons at the shooting range. \n Nothing better than firing a couple of bullets \n at your enemies, and of course feeling the \n rush of shooting what you own. Be safe";
@@ -73,5 +81,18 @@ public class homePageController {
             }
         });
         homePageInfo.setText(CaseOpeningInfo);
+    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //On load set these images
+        try {
+            homePageBackground.setImage(new Image(new FileInputStream("./images/csgo_nuke_background.jpg")));
+            caseIcon.setImage(new Image(new FileInputStream("./images/case_icon.png")));
+            shootingRangeIcon.setImage(new Image(new FileInputStream("./images/shootingRange_icon.png")));
+            lobbyCharacter.setImage(new Image(new FileInputStream("./images/soldier_standAnimation_lobby.gif")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        
     }
 }
