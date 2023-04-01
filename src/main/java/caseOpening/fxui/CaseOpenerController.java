@@ -22,7 +22,7 @@ public class CaseOpenerController implements Initializable {
     @FXML
     public void spinCase(){
         CaseSpinner caseSpinner = new CaseSpinner(goldenCase,showCaseWeapon1,showCaseWeapon2,showCaseWeapon3,showCaseWeapon4, showCaseWeapon5);
-        caseSpinner.spinCase(10);
+        caseSpinner.spinCase(10, 0.002);
     }
 
     @Override
