@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2a353b;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caseOpening.fxui.CaseOpenerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="608.0" style="-fx-background-color: #2a353b;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caseOpening.fxui.CaseOpenerController">
    <children>
       <ImageView fx:id="caseOpenedBackground" fitHeight="229.0" fitWidth="209.0" layoutX="202.0" layoutY="59.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,7 +20,7 @@
             <BoxBlur />
          </effect>
       </ImageView>
-      <Button layoutX="263.0" layoutY="321.0" mnemonicParsing="false" onAction="#spinCase" style="-fx-background-color: #49768f;" text="Spin" textFill="WHITE">
+      <Button layoutX="276.0" layoutY="322.0" mnemonicParsing="false" onAction="#spinCase" style="-fx-background-color: #49768f;" text="Spin" textFill="WHITE">
          <font>
             <Font size="19.0" />
          </font>
@@ -40,7 +40,7 @@
                   <Image url="@../../../../images/weapons-AK47Rebel.jpg" />
                </image>
             </ImageView>
-            <ImageView fx:id="showCaseWeapon2" fitHeight="137.0" fitWidth="208.0" layoutX="266.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="showCaseWeapon2" fitHeight="137.0" fitWidth="209.0" layoutX="268.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/weapons-AK47Rebel.jpg" />
                </image></ImageView>
@@ -49,11 +49,11 @@
                   <Image url="@../../../../images/weapons-AK47Rebel.jpg" />
                </image>
             </ImageView>
-            <ImageView fx:id="showCaseWeapon1" fitHeight="137.0" fitWidth="208.0" layoutX="64.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="showCaseWeapon1" fitHeight="137.0" fitWidth="209.0" layoutX="68.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/weapons-AK47Rebel.jpg" />
                </image></ImageView>
          </children></Pane>
-      <Line endX="-5.5" endY="35.0" layoutX="299.0" layoutY="68.0" startX="-5.5" startY="190.0" />
+      <Line endX="-5.5" endY="35.0" layoutX="309.0" layoutY="70.0" startX="-5.5" startY="190.0" />
    </children>
 </AnchorPane>
