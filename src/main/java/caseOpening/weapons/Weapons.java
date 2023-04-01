@@ -16,10 +16,10 @@ public class Weapons {
     protected int bullets;
 
     public Weapons(int fireRatePerSecond, int magazineSize, String name, String weaponImage, String rarity){
-        if(fireRatePerSecond <= 0 || magazineSize <= 0){
+        if(fireRatePerSecond < 0 || magazineSize < 0){
             throw new IllegalArgumentException("No negative amount");
         }
-        this.fireRate = 1000/fireRatePerSecond;
+        this.fireRate = fireRatePerSecond != 0 ? 1000/fireRatePerSecond : 0;
         this.magazineSize = magazineSize;
         this.bullets = magazineSize;
         this.name = name;
@@ -27,6 +27,9 @@ public class Weapons {
         this.rarity = rarity;
     }
 
+    /**
+     * Fires bullest with {@code fireRate} speed and stops when {@code magasinSize} is zero
+     */
     public void fire(){
         if(this.bullets > 0){
             System.out.println("Fire Bullet " + (this.magazineSize-this.bullets));
@@ -36,6 +39,9 @@ public class Weapons {
         }
     }
     
+    /**
+     * Reloads the bullets to the amount in {@code magasinSize}
+     */
     public void reload(){
         this.bullets = this.magazineSize;
     }
