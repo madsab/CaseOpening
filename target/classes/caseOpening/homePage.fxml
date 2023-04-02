@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.BoxBlur?>
@@ -44,7 +45,10 @@
             <BoxBlur height="0.0" width="0.0" />
          </effect>
          <children>
-            <Button fx:id="startAssignmentButton" layoutX="133.0" layoutY="149.0" mnemonicParsing="false" onAction="#toCaseOpening" prefHeight="26.0" prefWidth="137.0" style="-fx-background-color: lightgray;" text="Open Cases" />
+            <Button fx:id="startAssignmentButton" layoutX="133.0" layoutY="149.0" mnemonicParsing="false" onAction="#toCaseOpening" prefHeight="26.0" prefWidth="137.0" style="-fx-background-color: lightgray;" text="Open Cases">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <Label fx:id="homePageInfo" alignment="TOP_LEFT" layoutX="20.0" layoutY="22.0" prefHeight="109.0" prefWidth="258.0" text="Place your bets and push your luck in an exiting &#10;case opening. You can aquire different &#10;weapons in different rarities. From common &#10;pistols to the legendary knife. Best of luck" textFill="WHITE" textOverrun="CLIP" />
          </children>
       </Pane>
