@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import caseOpening.openingCases.CaseRegular;
 import caseOpening.openingCases.CaseSpinner;
-import caseOpening.weapons.Weapons;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -15,8 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-/*
- * Class that spins cases
+/**
+ * Controller class for spinning a case
  */
 public class CaseOpenerController implements Initializable {
     private static CaseRegular goldenCase = new CaseRegular();
