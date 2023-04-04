@@ -7,23 +7,64 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
+import caseOpening.tools.StringComparator;
+import caseOpening.tools.WeaponNameComparator;
+import caseOpening.weapons.Weapons;
 
-public class UserFileWriterReader implements Comparator<String> {
-    
+
+public class UserFileWriterReader {
+    private boolean hasChanged;
+    /**
+     * Write a {@code string} to a spesific file. Does not add lines, only rewrites
+     */
+    private void overrideFile(String string, String filepath){
+        FileWriter fw;
+        try {
+            fw = new FileWriter(filepath);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            pw.write(string);
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * adds User to UserOverview.txt. Must be a type Map with values username, password, keys and aqquired weapons
      */
-    public void addUser(Map<String, String> user){
+    public void addUser(HashMap<String, Object> user, String filepath){
+        if(allreadyUser((String)user.get("username"), filepath)){
+            throw new IllegalArgumentException("Allready a user");
+        }
         String stringToWrite = "";
         for (final String keys : user.keySet()){
-                stringToWrite += keys + ":" + user.get(keys) + " ";
+                //If object is an String Array (for example users weapons) sort them out before adding them to stringToWrite
+                System.out.println(user.get(keys).getClass());
+                if(user.get(keys).getClass().equals(ArrayList.class)){
+                    @SuppressWarnings("unchecked")
+                    List<Weapons> values = new ArrayList<Weapons>((ArrayList<Weapons>)user.get(keys));
+                    String stringToAdd = keys + ":";
+                    values.sort(new WeaponNameComparator());
+                    for (Weapons weapons : values){
+                        stringToAdd += weapons.getName() + ",";
+                    }
+                    stringToWrite += stringToAdd + " ";
+
+                } else {
+                    stringToWrite += keys + ":" + user.get(keys) + " ";
+                }
         }
         try {
-            FileWriter fw = new FileWriter("src/main/resources/caseOpening/UserOverview.txt", true);
+            FileWriter fw = new FileWriter(filepath, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.println(stringToWrite);
@@ -38,48 +79,123 @@ public class UserFileWriterReader implements Comparator<String> {
     /**
      * adds new information to an alrady existing user in UserOverview.txt
      */
-    public void addToUser(String username, String type, String content){
-        String lineToChange = "";
+    public void changeUser(String username, String type, String content, String filepath){
         //Finds user in UserOverview.txt
         try {
-            FileReader fw = new FileReader("src/main/resources/caseOpening/UserOverview.txt");
-            BufferedReader bw = new BufferedReader(fw);
-            String line = bw.readLine();
-
+            FileReader fr = new FileReader(filepath);
+            BufferedReader br = new BufferedReader(fr);
+            String line = br.readLine();
+            StringBuffer sb = new StringBuffer();
+            //String buffer adds all previous lines, but changed the desired line
             while (line != null){
-                if(line.contains(username)){
-                    lineToChange = line;
+                String usernameLine = line.substring(line.indexOf("username") + 9, line.indexOf(" ", line.indexOf("username")));
+                if(usernameLine.equals(username)){
+                    int changeIndex = line.indexOf(type);
+                    line = line.substring(0,changeIndex) + type + ":" + content + line.substring(line.indexOf(" ", changeIndex));
+                    hasChanged = true;
                 }
-                line = bw.readLine();
+                sb.append(line);
+                sb.append("\n");
+                line = br.readLine();
             }
-            //changes the line
-            int changeIndex = lineToChange.indexOf(type);
-            lineToChange = lineToChange.substring(0,changeIndex) + " " + type + ":" + content + lineToChange.substring(changeIndex + (2 + type.length() + content.length()));
-            bw.close();
-
-            //Writes it back to the right position
+            br.close();
+            if(hasChanged){
+                String updatedOverview = sb.toString();
+                overrideFile(updatedOverview, filepath);
+            } else {
+                throw new NullPointerException("User not found in " + filepath);
+            }
+            
             
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public Map<String, String> getUser(String username){
-        
+    /**
+     * Gets all user information from a spesific filepath. Note: only specified for one type of format
+     */
+    public Map<String, String> getUser(String username, String filePath){
+        Map<String, String> returnMap = new Hashtable<>();
+        try {
+            FileReader fr = new FileReader(filePath);
+            BufferedReader br = new BufferedReader(fr);
+            String line = br.readLine();
+            while (line != null){
+                String usernameLine = line.substring(line.indexOf("username") + 9, line.indexOf(" ", line.indexOf("username")));
+                if(usernameLine.equals(username)){
+                    br.close();
+                    line = line.trim();
+                    String[] userInfo = line.split(" ");
+                    for(String sections : userInfo){
+                        String[] keyAndvalues = sections.split(":");
+                        returnMap.put(keyAndvalues[0], keyAndvalues[1]);
+                    }
+                    return returnMap;
+                }
+            }
+            br.close();
+            return null;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public String getFromUser(String type, String username){
-
+    /**
+     * Gets a spesfic category from the user
+     */
+    public String getFromUser(String type, String username, String filePath){
+        Map<String, String> user = getUser(username, filePath);
+        return user.get(type);
     }
 
-    @Override
-    public int compare(String o1, String o2) {
-        throw new UnsupportedOperationException("Unimplemented method 'compare'");
+    
+    /**
+     * adds a weapon to a Users inventory
+     */
+    public void addWeapon(String username, Weapons weapon){
+        String aquiredWeapons = getFromUser("weapons", username, "src/main/resources/caseOpening/UserOverview.txt");
+        aquiredWeapons += weapon.getName() + ",";
+        List<String> aquiredWeaponsList = Arrays.asList(aquiredWeapons.split(","));
+        aquiredWeaponsList.sort(new StringComparator());
+        aquiredWeapons = "";
+        for (String s : aquiredWeaponsList){
+            aquiredWeapons += s + ",";
+        }
+        changeUser(username, "weapons", aquiredWeapons, "src/main/resources/caseOpening/UserOverview.txt");
     }
+
+
+    /**
+     * removes a spesific weapon given that the User has that weapon
+     */
+    public void removeWeapon(String username, Weapons weapon){
+        String aquiredWeapons = getFromUser("weapons", username, "src/main/resources/caseOpening/UserOverview.txt");
+        aquiredWeapons = aquiredWeapons.replace(weapon.getName()+",", "");
+        changeUser(username, "weapons", aquiredWeapons, "src/main/resources/caseOpening/UserOverview.txt");
+    }
+
+    /**
+     * Takes in a {@code username} and sees if it is already in the file
+     */
+    private boolean allreadyUser(String username, String filepath){
+        return getUser(username, filepath) != null;
+    }
+
 
     public static void main(String[] args) {
         UserFileWriterReader test = new UserFileWriterReader();
-        Map<String, String> dict = new Hashtable<>();
+        List<Weapons> vapen = new ArrayList<>(Arrays.asList(new Weapons(0, 0, "Tester1", null, null), new Weapons(0, 0, "tester2", null, null))); 
+        HashMap<String,Object> mom = new HashMap<String, Object>();
+        mom.put("username","madsab");
+        mom.put("password","mad22");
+        mom.put("keys","6");
+        mom.put("weapons", vapen);
+        
+
+        test.addUser(mom, "src/main/resources/caseOpening/UserOverview.txt");
+        // test.removeWeapon("madsab", new Weapons(0, 0, "Tester1", null, null));
     }
-    
 }
