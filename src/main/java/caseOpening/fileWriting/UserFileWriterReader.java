@@ -25,9 +25,8 @@ public class UserFileWriterReader {
      * Write a {@code string} to a spesific file. Does not add lines, only rewrites
      */
     private void overrideFile(String string, String filepath){
-        FileWriter fw;
         try {
-            fw = new FileWriter(filepath);
+            FileWriter fw = new FileWriter(filepath);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.write(string);
@@ -74,6 +73,34 @@ public class UserFileWriterReader {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Delete a user in a file
+     */
+    public void deleteUser(String username, String filepath){
+        try {
+            FileReader fr = new FileReader(filepath);
+            BufferedReader br = new BufferedReader(fr);
+            String line = br.readLine();
+            StringBuffer sb = new StringBuffer();
+
+            while (line != null){
+                String usernameLine = line.substring(line.indexOf("username") + 9, line.indexOf(" ", line.indexOf("username")));
+                if(usernameLine.equals(username)){
+                    line = br.readLine();
+                } else {
+                    sb.append(line);
+                    sb.append("\n");
+                    line = br.readLine();
+                }
+            }
+            overrideFile(sb.toString(), filepath);
+            br.close();
+
+        } catch (Exception e){
+            throw new IllegalArgumentException("Couldn't find user in " + filepath);
+        }
     }
 
     /**
@@ -133,6 +160,7 @@ public class UserFileWriterReader {
                     }
                     return returnMap;
                 }
+                line = br.readLine();
             }
             br.close();
             return null;
@@ -182,20 +210,5 @@ public class UserFileWriterReader {
      */
     private boolean allreadyUser(String username, String filepath){
         return getUser(username, filepath) != null;
-    }
-
-
-    public static void main(String[] args) {
-        UserFileWriterReader test = new UserFileWriterReader();
-        List<Weapons> vapen = new ArrayList<>(Arrays.asList(new Weapons(0, 0, "Tester1", null, null), new Weapons(0, 0, "tester2", null, null))); 
-        HashMap<String,Object> mom = new HashMap<String, Object>();
-        mom.put("username","madsab");
-        mom.put("password","mad22");
-        mom.put("keys","6");
-        mom.put("weapons", vapen);
-        
-
-        test.addUser(mom, "src/main/resources/caseOpening/UserOverview.txt");
-        // test.removeWeapon("madsab", new Weapons(0, 0, "Tester1", null, null));
     }
 }
