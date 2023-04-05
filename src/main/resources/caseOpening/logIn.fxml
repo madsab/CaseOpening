@@ -30,13 +30,14 @@
             <TextField fx:id="password" layoutX="35.0" layoutY="162.0" prefHeight="34.0" prefWidth="193.0" />
             <Label layoutX="34.0" layoutY="81.0" text="Username" />
             <Label layoutX="35.0" layoutY="145.0" text="Password" />
-            <Button layoutX="52.0" layoutY="219.0" mnemonicParsing="false" onAction="#onLogIn" prefHeight="42.0" prefWidth="160.0" text="Log In" />
+            <Button layoutX="52.0" layoutY="226.0" mnemonicParsing="false" onAction="#onLogIn" prefHeight="42.0" prefWidth="160.0" text="Log In" />
             <Label layoutX="68.0" layoutY="278.0" text="Don't have an account?" />
             <Hyperlink layoutX="72.0" layoutY="309.0" onAction="#createAccount" style="-fx-border: none;" text="Create an account" textFill="#3241d9">
                <font>
                   <Font size="14.0" />
                </font>
             </Hyperlink>
+            <Label fx:id="logInResponse" alignment="CENTER" layoutX="36.0" layoutY="196.0" prefHeight="17.0" prefWidth="193.0" textFill="RED" />
          </children></Pane>
    </children>
 </AnchorPane>
