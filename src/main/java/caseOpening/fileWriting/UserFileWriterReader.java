@@ -42,12 +42,11 @@ public class UserFileWriterReader {
      */
     public void addUser(HashMap<String, Object> user, String filepath){
         if(allreadyUser((String)user.get("username"), filepath)){
-            throw new IllegalArgumentException("Allready a user");
+            throw new IllegalStateException();
         }
         String stringToWrite = "";
         for (final String keys : user.keySet()){
                 //If object is an String Array (for example users weapons) sort them out before adding them to stringToWrite
-                System.out.println(user.get(keys).getClass());
                 if(user.get(keys).getClass().equals(ArrayList.class)){
                     @SuppressWarnings("unchecked")
                     List<Weapons> values = new ArrayList<Weapons>((ArrayList<Weapons>)user.get(keys));
@@ -156,7 +155,11 @@ public class UserFileWriterReader {
                     String[] userInfo = line.split(" ");
                     for(String sections : userInfo){
                         String[] keyAndvalues = sections.split(":");
-                        returnMap.put(keyAndvalues[0], keyAndvalues[1]);
+                        try{
+                            returnMap.put(keyAndvalues[0], keyAndvalues[1]);
+                        } catch (Exception e){
+                            returnMap.put(keyAndvalues[0], "null");
+                        }
                     }
                     return returnMap;
                 }
