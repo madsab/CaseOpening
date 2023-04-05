@@ -1,15 +1,17 @@
 package caseOpening.logIn;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-
+import caseOpening.fileWriting.UserFileWriterReader;
 import caseOpening.weapons.Weapons;
 
 public class User {
     private String username, password;
     private int keys;
     private List<Weapons> aqquiredWeapons = new ArrayList<>();
+    private HashMap<String, Object> user = new HashMap<>();
 
     /*
      * Constructors
@@ -21,6 +23,13 @@ public class User {
         this.setUsername(username);
         this.setPassword(password);
         this.keys = 5;
+        //Add user to text file
+        user.put("username", username);
+        user.put("password", password);
+        user.put("keys", "5");
+        user.put("weapons", this.aqquiredWeapons);
+        UserFileWriterReader fw = new UserFileWriterReader();
+        fw.addUser(user, "src/main/resources/caseOpening/UserOverview.txt");
     }
 
     /*
