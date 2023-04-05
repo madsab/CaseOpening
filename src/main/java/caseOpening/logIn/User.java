@@ -99,7 +99,7 @@ public class User {
 
     private boolean isValidUsername(String username){
         //Check if username contains any of this special characters or numbers
-        return !username.matches("^.*['§*!#$%&/()=?+0-9]");
+        return !username.matches("^.*['§*!#$%&/()=?+]");
     }
 
 }
