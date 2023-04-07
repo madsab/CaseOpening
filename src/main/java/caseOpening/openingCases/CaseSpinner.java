@@ -3,10 +3,7 @@ package caseOpening.openingCases;
 
 
 import java.io.IOException;
-import java.util.Dictionary;
-import java.util.Hashtable;
 
-import caseOpening.fileWriting.UserFileWriterReader;
 import caseOpening.weapons.Weapons;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -95,7 +92,6 @@ public class CaseSpinner {
         if(!hasChosenWeapon){
             this.hasChosenWeapon = true;
             Weapons weaponWon = activeCase.getPrizeWeapon();
-            System.out.println(weaponWon.getName());
             this.currentWonWeapon = weaponWon;
             return weaponWon;
         }
