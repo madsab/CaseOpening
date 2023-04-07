@@ -28,12 +28,13 @@ public class CaseOpenerController implements Initializable {
     @FXML private ImageView showCaseWeapon1, showCaseWeapon2, showCaseWeapon3, showCaseWeapon4, showCaseWeapon5, caseOpenedBackground, showWeaponWon, backIcon;
     @FXML private Pane ShowWeaponPane;
     @FXML private Label weaponName;
+    private CaseSpinner caseSpinner;
 
     @FXML
     public void spinCase(){
-        CaseSpinner caseSpinner = new CaseSpinner(goldenCase,showCaseWeapon1,showCaseWeapon2,showCaseWeapon3,showCaseWeapon4, showCaseWeapon5);
-        caseSpinner.spinCase(10, 0.002, ShowWeaponPane, showWeaponWon, weaponName);
-        //Gets won weapon and shows it to User
+        if(!caseSpinner.isSpinning()){
+            caseSpinner.spinCase(10, 0.002, ShowWeaponPane, showWeaponWon, weaponName);
+        }
     }
 
     @FXML
@@ -61,6 +62,7 @@ public class CaseOpenerController implements Initializable {
             showCaseWeapon3.setImage(goldenCase.getPrizeWeapon().getImage());
             showCaseWeapon4.setImage(goldenCase.getPrizeWeapon().getImage());
             showCaseWeapon5.setImage(goldenCase.getPrizeWeapon().getImage());
+            caseSpinner = new CaseSpinner(goldenCase,showCaseWeapon1,showCaseWeapon2,showCaseWeapon3,showCaseWeapon4, showCaseWeapon5);
         } catch (IOException e){
             e.printStackTrace();
         }

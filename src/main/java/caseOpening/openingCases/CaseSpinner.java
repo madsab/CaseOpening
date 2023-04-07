@@ -16,7 +16,7 @@ public class CaseSpinner {
     private ImageView[] imageList;
     private Case activeCase;
     private int recursiveStopper = 0;
-    private boolean hasChosenWeapon;
+    private boolean hasChosenWeapon, isSpinning;
     private Weapons currentWonWeapon;
     
     public CaseSpinner(Case activCase, ImageView ... weaponImages){
@@ -32,6 +32,7 @@ public class CaseSpinner {
      * Also takes in parameters {@code Pane}, {@code ImageView}, {@code Label} for showing User the weapon on screen
      */
     public void spinCase(double duration, double speed, Pane pane, ImageView imageView, Label label){
+        isSpinning = true;
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(speed), e -> {
             for (ImageView image : imageList){
                 image.setLayoutX(image.getLayoutX() + 2);
@@ -46,7 +47,7 @@ public class CaseSpinner {
             }
         }));
         timeline.setCycleCount((40*(int)duration));
-        timeline.play();
+        timeline.play(); 
         timeline.setOnFinished(e -> {
             if(recursiveStopper < 30){
                 recursiveStopper++;
@@ -77,8 +78,13 @@ public class CaseSpinner {
                     e1.printStackTrace();
                 }
                 pane.setVisible(true);
+                //Reset counters and booleans
+                isSpinning = false;
+                recursiveStopper = 0;
+                hasChosenWeapon = false;
             }
-        });    
+        });
+        
     }
 
     /**
@@ -96,5 +102,9 @@ public class CaseSpinner {
             return weaponWon;
         }
         return null;
+    }
+    
+    public boolean isSpinning(){
+        return this.isSpinning;
     }
 }
