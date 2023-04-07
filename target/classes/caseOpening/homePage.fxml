@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caseOpening.fxui.homePageController">
    <children>
@@ -50,12 +51,25 @@
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
             <Label fx:id="homePageInfo" alignment="TOP_LEFT" layoutX="20.0" layoutY="22.0" prefHeight="109.0" prefWidth="258.0" text="Place your bets and push your luck in an exiting &#10;case opening. You can aquire different &#10;weapons in different rarities. From common &#10;pistols to the legendary knife. Best of luck" textFill="WHITE" textOverrun="CLIP" />
+            <Label fx:id="amountKeysLabel" layoutX="57.0" layoutY="153.0" text=": 6" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <ImageView fx:id="keyImage" fitHeight="37.0" fitWidth="37.0" layoutX="20.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../images/keyBlue.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
-      <ImageView fx:id="lobbyCharacter" fitHeight="387.0" fitWidth="249.0" layoutX="418.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="lobbyCharacter" fitHeight="351.0" fitWidth="226.0" layoutX="433.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../images/soldier_standAnimation_lobby.gif" />
          </image>
       </ImageView>
+      <Label fx:id="usernameShowLabel" alignment="CENTER" layoutX="506.0" layoutY="51.0" prefHeight="17.0" prefWidth="94.0" text="Test" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
    </children>
 </AnchorPane>
