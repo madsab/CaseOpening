@@ -24,7 +24,7 @@ public class UserFileWriterReader {
     /**
      * Write a {@code string} to a spesific file. Does not add lines, only rewrites
      */
-    private void overrideFile(String string, String filepath){
+    public void overrideFile(String string, String filepath){
         try {
             FileWriter fw = new FileWriter(filepath);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -174,6 +174,47 @@ public class UserFileWriterReader {
         }
     }
 
+    public String getUserAsString(String username, String filePath){
+        try {
+            FileReader fr = new FileReader(filePath);
+            BufferedReader br = new BufferedReader(fr);
+            String line = br.readLine();
+            while (line != null){
+                String usernameLine = line.substring(line.indexOf("username") + 9, line.indexOf(" ", line.indexOf("username")));
+                if(usernameLine.equals(username)){
+                    br.close();
+                    return line;
+                }
+                line = br.readLine();
+            }
+            br.close();
+            return null;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getUserNameFromLine(int lineNumber, String filePath){
+        try {
+            FileReader fr = new FileReader(filePath);
+            BufferedReader br = new BufferedReader(fr);
+            String line = br.readLine();
+            int counter = 0;
+            while (counter < lineNumber){
+                line = br.readLine();
+            }
+            String usernameLine = line.substring(line.indexOf("username") + 9, line.indexOf(" ", line.indexOf("username")));
+            br.close();
+            return usernameLine;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * Gets a spesfic category from the user
      */
@@ -214,4 +255,5 @@ public class UserFileWriterReader {
     private boolean allreadyUser(String username, String filepath){
         return getUser(username, filepath) != null;
     }
+
 }
