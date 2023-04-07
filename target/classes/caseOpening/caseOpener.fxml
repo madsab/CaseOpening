@@ -119,10 +119,32 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="485.0" layoutY="30.0" text="Keys:" textFill="WHITE">
+      <Label fx:id="keyAmount" layoutX="548.0" layoutY="28.0" text=":" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font size="16.0" />
          </font>
       </Label>
+      <ImageView fx:id="keyImageView" fitHeight="37.0" fitWidth="51.0" layoutX="503.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../images/keyBlue.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="noMoreKeysPane" layoutX="148.0" layoutY="14.0" prefHeight="290.0" prefWidth="310.0" style="-fx-background-color: #2a353b; -fx-border-color: white; visibility: false;">
+         <children>
+            <Label fx:id="noMoreKeysLabel" alignment="TOP_CENTER" layoutX="25.0" layoutY="51.0" prefHeight="122.0" prefWidth="260.0" text="You have no more keys&#10;&#10;Sell you weapons at the &#10;shooting range to earn more&#10;" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Button layoutX="138.0" layoutY="235.0" mnemonicParsing="false" onAction="#hideNoMoreKeys" style="-fx-background-color: #49768f;" text="OK" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
