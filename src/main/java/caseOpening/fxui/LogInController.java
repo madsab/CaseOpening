@@ -21,12 +21,14 @@ public class LogInController {
     @FXML
     public void onLogIn(ActionEvent event) throws IOException{
         UserFileWriterReader fr = new UserFileWriterReader();
+        String loginUser = fr.getUserAsString(username.getText(),"src/main/resources/caseOpening/UserOverview.txt");
         if(fr.getUser(username.getText(), "src/main/resources/caseOpening/UserOverview.txt") == null){
             logInResponse.setText("Can't find user");
         } else if (!password.getText().equals(fr.getFromUser("password", username.getText(), "src/main/resources/caseOpening/UserOverview.txt"))){
             logInResponse.setText("Not correct password");
         }
         else {
+            fr.overrideFile(loginUser, "src/main/resources/caseOpening/ActiveUser.txt");
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("caseOpening/homePage.fxml"));
             Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
             Scene scene = new Scene(root);
@@ -34,7 +36,7 @@ public class LogInController {
             stage.show();
         }
     }
-
+    
     //Takes you to create account page
     @FXML
     public void createAccount(ActionEvent event) throws IOException {
