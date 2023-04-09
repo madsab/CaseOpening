@@ -4,6 +4,8 @@ package caseOpening.openingCases;
 
 import java.io.IOException;
 
+import caseOpening.fileWriting.UserFileWriterReader;
+import caseOpening.logIn.User;
 import caseOpening.weapons.Weapons;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -18,10 +20,13 @@ public class CaseSpinner {
     private int recursiveStopper = 0;
     private boolean hasChosenWeapon, isSpinning;
     private Weapons currentWonWeapon;
+    private User activeUser;
     
-    public CaseSpinner(Case activCase, ImageView ... weaponImages){
+    public CaseSpinner(String activeUsername, String filePath, Case activCase, ImageView ... weaponImages){
         this.imageList = weaponImages;
         this.activeCase = activCase;
+        this.activeUser = new User(activeUsername, filePath, true);
+        
     }
         
     //1060 at end
@@ -82,6 +87,9 @@ public class CaseSpinner {
                 isSpinning = false;
                 recursiveStopper = 0;
                 hasChosenWeapon = false;
+
+                //Add weapons to user
+                activeUser.addWeapon(currentWonWeapon);
             }
         });
         

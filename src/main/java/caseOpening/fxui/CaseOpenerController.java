@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import caseOpening.fileWriting.UserFileWriterReader;
+import caseOpening.logIn.User;
 import caseOpening.openingCases.CaseRegular;
 import caseOpening.openingCases.CaseSpinner;
 import javafx.event.ActionEvent;
@@ -30,20 +31,17 @@ public class CaseOpenerController implements Initializable {
     @FXML private Pane ShowWeaponPane, noMoreKeysPane;
     @FXML private Label weaponName, keyAmount;
     private CaseSpinner caseSpinner;
-    private UserFileWriterReader fw;
-    private String activeUsername;
-    private int activeUserkeys;
+    private User activeUser;
 
     @FXML
     public void spinCase(){
-        if(!(caseSpinner.isSpinning()) && activeUserkeys > 0){
-            activeUserkeys--;
-            fw.changeUser(activeUsername, "keys", String.valueOf(activeUserkeys), "src/main/resources/caseOpening/UserOverview.txt");
-            keyAmount.setText(": " + String.valueOf(activeUserkeys));
-            caseSpinner.spinCase(10, 0.002, ShowWeaponPane, showWeaponWon, weaponName);
-        }
-        if(activeUserkeys == 0){
+        if(this.activeUser.getKeys() == 0){
             noMoreKeysPane.setVisible(true);
+        }
+        if(!(caseSpinner.isSpinning()) && this.activeUser.getKeys() > 0){
+            this.activeUser.removeKeys(1);
+            keyAmount.setText(": " + this.activeUser.getKeys());
+            caseSpinner.spinCase(10, 0.002, ShowWeaponPane, showWeaponWon, weaponName);
         }
     }
 
@@ -68,9 +66,7 @@ public class CaseOpenerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        fw = new UserFileWriterReader();
-        activeUsername = fw.getUserNameFromLine(0, "src/main/resources/caseOpening/ActiveUser.txt");
-        activeUserkeys = Integer.parseInt(fw.getFromUser("keys", activeUsername, "src/main/resources/caseOpening/UserOverview.txt"));
+        this.activeUser = new User("src/main/resources/caseOpening/ActiveUser.txt");
         //Set 5 random weapons on loading of scene and user key info
         try{
             caseOpenedBackground.setImage(new Image(new FileInputStream("./images/weapons-case-opened.png")));
@@ -81,8 +77,8 @@ public class CaseOpenerController implements Initializable {
             showCaseWeapon4.setImage(goldenCase.getPrizeWeapon().getImage());
             showCaseWeapon5.setImage(goldenCase.getPrizeWeapon().getImage());
             keyImageView.setImage(new Image(new FileInputStream("./images/keyBlue.png")));
-            keyAmount.setText(": " + fw.getFromUser("keys", activeUsername, "src/main/resources/caseOpening/UserOverview.txt"));
-            caseSpinner = new CaseSpinner(goldenCase,showCaseWeapon1,showCaseWeapon2,showCaseWeapon3,showCaseWeapon4, showCaseWeapon5);
+            keyAmount.setText(": " + this.activeUser.getKeys());
+            caseSpinner = new CaseSpinner(this.activeUser.getUsername(), "src/main/resources/caseOpening/UserOverview.txt", goldenCase,showCaseWeapon1,showCaseWeapon2,showCaseWeapon3,showCaseWeapon4, showCaseWeapon5);
         } catch (IOException e){
             e.printStackTrace();
         }
