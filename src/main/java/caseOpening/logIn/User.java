@@ -46,13 +46,13 @@ public class User {
     }
 
     /**
-     * Constructor that gets the first user from the first line of a file
+     * Constructor that gets the actvive User from Active.txt {@code filePath} is for where you also want to update info when changed
      * <p>
      * Usefull for storing an active user
      */
     public User(String filePath){
         this.filePath = filePath;
-        this.setUsername(fw.getUserNameFromLine(0, filePath));
+        this.setUsername(fw.getUserNameFromLine(0, "src/main/resources/caseOpening/ActiveUser.txt"));
         this.setPassword((String)fw.getFromUser("password", this.username, filePath));
         this.keys = (Integer)fw.getFromUser("keys", this.getUsername(), filePath);
         @SuppressWarnings("unchecked")
@@ -63,9 +63,9 @@ public class User {
     }
 
     public User(String username, String password, int keys, List<Weapons> weapons){
-        this.username = username;
-        this.password = password;
-        this.keys = keys;
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setKeys(keys);
         for (Weapons weapon : weapons){
             this.aqquiredWeapons.add(weapon);
         }
@@ -123,6 +123,13 @@ public class User {
             throw new IllegalArgumentException("Not valid username. No symbols or digits");
         }
         this.username = username;
+    }
+
+    public void setKeys(int number){
+        if(number < 0){
+            throw new IllegalArgumentException("Number can't be negative");
+        }
+        this.keys = number;
     }
 
 

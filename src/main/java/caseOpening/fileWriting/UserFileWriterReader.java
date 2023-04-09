@@ -38,7 +38,6 @@ public class UserFileWriterReader {
      */
     public void addUser(User user, String filepath){
         if(allreadyUser(user.getUsername(), filepath)){
-            System.out.println("Kaster IllegalState");
             throw new IllegalStateException();
         }
         try {
@@ -97,7 +96,11 @@ public class UserFileWriterReader {
                 String usernameLine = line.substring(line.indexOf("username") + 9, line.indexOf(" ", line.indexOf("username")));
                 if(usernameLine.equals(username)){
                     int changeIndex = line.indexOf(type);
-                    line = line.substring(0,changeIndex) + type + ":" + content + line.substring(line.indexOf(" ", changeIndex));
+                    try{
+                        line = line.substring(0,changeIndex+type.length()+1) + content + line.substring(line.indexOf(" ", changeIndex));
+                    } catch(IndexOutOfBoundsException e){
+                        line = line.substring(0,changeIndex+type.length()+1) + content;
+                    }
                     hasChanged = true;
                 }
                 sb.append(line);
@@ -133,9 +136,9 @@ public class UserFileWriterReader {
                     int keys = Integer.parseInt(line.substring(line.indexOf("keys")+ 5, line.indexOf(" ", line.indexOf("keys"))));
                     List<Weapons> returnWeapons = new ArrayList<>();
                     try {
-                        String[] weapons = line.substring(line.indexOf("weapons") + 8, line.indexOf(" ", line.indexOf("weapons"))).split(",");
+                        String[] weapons = line.substring(line.indexOf("weapons") + 8).split(",");                        
                         for(String weapon : weapons){
-                            String[] s = weapon.replace(")", "").split("(");
+                            String[] s = weapon.replace(")", "").split("\\(");
                             returnWeapons.add(new Weapons(35, 25, s[0], "./images/weapons-" + s[0] + ".jpg", s[1]));
                         } 
                     } catch (Exception e){
@@ -210,6 +213,7 @@ public class UserFileWriterReader {
     public void addWeapon(String username, Weapons weapon, String filePath){
         @SuppressWarnings("unchecked")
         List<Weapons> aquiredWeapons = (List<Weapons>)this.getFromUser("weapons", username, filePath);
+        aquiredWeapons.add(weapon);
         aquiredWeapons.sort(new WeaponNameComparator());
         String weaponsAsString = "";
         for( Weapons aquiredWeapon : aquiredWeapons){

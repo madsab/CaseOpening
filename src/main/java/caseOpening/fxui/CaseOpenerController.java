@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import caseOpening.fileWriting.UserFileWriterReader;
 import caseOpening.logIn.User;
 import caseOpening.openingCases.CaseRegular;
 import caseOpening.openingCases.CaseSpinner;
@@ -66,7 +65,7 @@ public class CaseOpenerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.activeUser = new User("src/main/resources/caseOpening/ActiveUser.txt");
+        this.activeUser = new User("src/main/resources/caseOpening/UserOverview.txt");
         //Set 5 random weapons on loading of scene and user key info
         try{
             caseOpenedBackground.setImage(new Image(new FileInputStream("./images/weapons-case-opened.png")));

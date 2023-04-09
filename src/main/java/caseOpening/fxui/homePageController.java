@@ -89,7 +89,7 @@ public class homePageController implements Initializable{
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.activeUser = new User("src/main/resources/caseOpening/ActiveUser.txt");
+        this.activeUser = new User("src/main/resources/caseOpening/UserOverview.txt");
         //On load set these images
         try {
             homePageBackground.setImage(new Image(new FileInputStream("./images/csgo_nuke_background.jpg")));
