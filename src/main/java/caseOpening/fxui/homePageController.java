@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import caseOpening.fileWriting.UserFileWriterReader;
+import caseOpening.logIn.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,7 +28,7 @@ public class homePageController implements Initializable{
     @FXML private Button startAssignmentButton;
     private String ShootingRangeInfo = "Test your weapons at the shooting range. \n Nothing better than firing a couple of bullets \n at your enemies, and of course feeling the \n rush of shooting what you own. Be safe";
     private String CaseOpeningInfo = "Place your bets and push your luck in an exiting \n case opening. You can aquire different \n weapons in different rarities. From common \n pistols to the legendary knife. Best of luck";
-    private String activeUsername, activeKeysAmount;
+    private User activeUser;
     //Takes user to CaseOpening main page
     @FXML
     public void toCaseOpening(ActionEvent event) throws IOException{
@@ -89,9 +89,7 @@ public class homePageController implements Initializable{
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UserFileWriterReader fr = new UserFileWriterReader();
-        this.activeUsername = fr.getUserNameFromLine(0, "src/main/resources/caseOpening/ActiveUser.txt");
-        this.activeKeysAmount = fr.getFromUser("keys", this.activeUsername, "src/main/resources/caseOpening/UserOverview.txt");
+        this.activeUser = new User("src/main/resources/caseOpening/ActiveUser.txt");
         //On load set these images
         try {
             homePageBackground.setImage(new Image(new FileInputStream("./images/csgo_nuke_background.jpg")));
@@ -100,8 +98,8 @@ public class homePageController implements Initializable{
             lobbyCharacter.setImage(new Image(new FileInputStream("./images/soldier_standAnimation_lobby.gif")));
             keyImage.setImage(new Image(new FileInputStream("./images/keyBlue.png")));
 
-            amountKeysLabel.setText(": " + this.activeKeysAmount);
-            usernameShowLabel.setText(this.activeUsername);
+            amountKeysLabel.setText(": " + this.activeUser.getKeys());
+            usernameShowLabel.setText(this.activeUser.getUsername());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

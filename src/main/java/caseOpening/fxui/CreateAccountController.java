@@ -20,7 +20,7 @@ public class CreateAccountController {
     @FXML
     public void createNewAccount(){
         try {
-            new User(createdUsername.getText(), createdPassword.getText());
+            new User(createdUsername.getText(), createdPassword.getText()).addUserToFile("src/main/resources/caseOpening/UserOverview.txt");;
             createdUserResponse.setText("User created");
             createdUserResponse.setStyle("-fx-text-fill: green;");
         } catch (Exception e){

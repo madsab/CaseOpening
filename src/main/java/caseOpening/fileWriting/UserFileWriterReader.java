@@ -8,13 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 
-import caseOpening.tools.StringComparator;
+import caseOpening.logIn.User;
 import caseOpening.tools.WeaponNameComparator;
 import caseOpening.weapons.Weapons;
 
@@ -40,32 +36,16 @@ public class UserFileWriterReader {
     /**
      * adds User to UserOverview.txt. Must be a type Map with values username, password, keys and aqquired weapons
      */
-    public void addUser(HashMap<String, Object> user, String filepath){
-        if(allreadyUser((String)user.get("username"), filepath)){
+    public void addUser(User user, String filepath){
+        if(allreadyUser(user.getUsername(), filepath)){
+            System.out.println("Kaster IllegalState");
             throw new IllegalStateException();
-        }
-        String stringToWrite = "";
-        for (final String keys : user.keySet()){
-                //If object is an String Array (for example users weapons) sort them out before adding them to stringToWrite
-                if(user.get(keys).getClass().equals(ArrayList.class)){
-                    @SuppressWarnings("unchecked")
-                    List<Weapons> values = new ArrayList<Weapons>((ArrayList<Weapons>)user.get(keys));
-                    String stringToAdd = keys + ":";
-                    values.sort(new WeaponNameComparator());
-                    for (Weapons weapons : values){
-                        stringToAdd += weapons.getName() + ",";
-                    }
-                    stringToWrite += stringToAdd + " ";
-
-                } else {
-                    stringToWrite += keys + ":" + user.get(keys) + " ";
-                }
         }
         try {
             FileWriter fw = new FileWriter(filepath, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-            pw.println(stringToWrite);
+            pw.println(user.toString());
             pw.close();
             
         } catch (IOException e) {
@@ -98,7 +78,7 @@ public class UserFileWriterReader {
             br.close();
 
         } catch (Exception e){
-            throw new IllegalArgumentException("Couldn't find user in " + filepath);
+            throw new IllegalArgumentException("Couldn't find "+ username + " in " + filepath);
         }
     }
 
@@ -141,8 +121,7 @@ public class UserFileWriterReader {
     /**
      * Gets all user information from a spesific filepath. Note: only specified for one type of format
      */
-    public Map<String, String> getUser(String username, String filePath){
-        Map<String, String> returnMap = new Hashtable<>();
+    public User getUser(String username, String filePath){
         try {
             FileReader fr = new FileReader(filePath);
             BufferedReader br = new BufferedReader(fr);
@@ -150,18 +129,20 @@ public class UserFileWriterReader {
             while (line != null){
                 String usernameLine = line.substring(line.indexOf("username") + 9, line.indexOf(" ", line.indexOf("username")));
                 if(usernameLine.equals(username)){
-                    br.close();
-                    line = line.trim();
-                    String[] userInfo = line.split(" ");
-                    for(String sections : userInfo){
-                        String[] keyAndvalues = sections.split(":");
-                        try{
-                            returnMap.put(keyAndvalues[0], keyAndvalues[1]);
-                        } catch (Exception e){
-                            returnMap.put(keyAndvalues[0], "null");
-                        }
+                    String password = line.substring(line.indexOf("password")+ 9, line.indexOf(" ", line.indexOf("password"))); 
+                    int keys = Integer.parseInt(line.substring(line.indexOf("keys")+ 5, line.indexOf(" ", line.indexOf("keys"))));
+                    List<Weapons> returnWeapons = new ArrayList<>();
+                    try {
+                        String[] weapons = line.substring(line.indexOf("weapons") + 8, line.indexOf(" ", line.indexOf("weapons"))).split(",");
+                        for(String weapon : weapons){
+                            String[] s = weapon.replace(")", "").split("(");
+                            returnWeapons.add(new Weapons(35, 25, s[0], "./images/weapons-" + s[0] + ".jpg", s[1]));
+                        } 
+                    } catch (Exception e){
+                        
                     }
-                    return returnMap;
+                    br.close();
+                    return new User(username, password, keys, returnWeapons);
                 }
                 line = br.readLine();
             }
@@ -169,7 +150,6 @@ public class UserFileWriterReader {
             return null;
             
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -218,35 +198,41 @@ public class UserFileWriterReader {
     /**
      * Gets a spesfic category from the user
      */
-    public String getFromUser(String type, String username, String filePath){
-        Map<String, String> user = getUser(username, filePath);
+    public Object getFromUser(String type, String username, String filePath){
+        User user = getUser(username, filePath);
         return user.get(type);
     }
 
     
     /**
-     * adds a weapon to a Users inventory
+     * adds a weapon to a Users inventory, sorts by weapon Name
      */
-    public void addWeapon(String username, Weapons weapon){
-        String aquiredWeapons = getFromUser("weapons", username, "src/main/resources/caseOpening/UserOverview.txt");
-        aquiredWeapons += weapon.getName() + ",";
-        List<String> aquiredWeaponsList = Arrays.asList(aquiredWeapons.split(","));
-        aquiredWeaponsList.sort(new StringComparator());
-        aquiredWeapons = "";
-        for (String s : aquiredWeaponsList){
-            aquiredWeapons += s + ",";
+    public void addWeapon(String username, Weapons weapon, String filePath){
+        @SuppressWarnings("unchecked")
+        List<Weapons> aquiredWeapons = (List<Weapons>)this.getFromUser("weapons", username, filePath);
+        aquiredWeapons.sort(new WeaponNameComparator());
+        String weaponsAsString = "";
+        for( Weapons aquiredWeapon : aquiredWeapons){
+            weaponsAsString += aquiredWeapon.getName() + "(" + aquiredWeapon.getRarity() + "),";
         }
-        changeUser(username, "weapons", aquiredWeapons, "src/main/resources/caseOpening/UserOverview.txt");
+        changeUser(username, "weapons", weaponsAsString, filePath);
     }
 
 
     /**
      * removes a spesific weapon given that the User has that weapon
      */
-    public void removeWeapon(String username, Weapons weapon){
-        String aquiredWeapons = getFromUser("weapons", username, "src/main/resources/caseOpening/UserOverview.txt");
-        aquiredWeapons = aquiredWeapons.replace(weapon.getName()+",", "");
-        changeUser(username, "weapons", aquiredWeapons, "src/main/resources/caseOpening/UserOverview.txt");
+    public void removeWeapon(String username, Weapons weapon, String filePath){
+        @SuppressWarnings("unchecked")
+        List<Weapons> aquiredWeapons = (List<Weapons>)getFromUser("weapons", username, filePath);
+        aquiredWeapons.sort(new WeaponNameComparator());
+        String weaponsAsString = "";
+        for( Weapons aquiredWeapon : aquiredWeapons){
+            if(!aquiredWeapon.equals(weapon)){
+                weaponsAsString += aquiredWeapon.getName() + "(" + aquiredWeapon.getRarity() + "),";
+            }
+        }
+        changeUser(username, "weapons", weaponsAsString, filePath);
     }
 
     /**
