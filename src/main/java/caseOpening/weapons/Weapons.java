@@ -14,6 +14,7 @@ public class Weapons {
     protected String weaponImage;
     protected String rarity;
     protected int bullets;
+    protected int valueInKeys;
 
     public Weapons(int fireRatePerSecond, int magazineSize, String name, String weaponImage, String rarity){
         if(fireRatePerSecond < 0 || magazineSize < 0){
@@ -25,6 +26,7 @@ public class Weapons {
         this.name = name;
         this.weaponImage = weaponImage;
         this.rarity = rarity;
+        setValue(rarity);
     }
 
     /**
@@ -71,5 +73,29 @@ public class Weapons {
 
     public String getRarity() {
         return rarity;
+    }
+
+    public int getValue(){
+        return this.valueInKeys;
+    }
+
+    private void setValue(String rarity){
+        switch(rarity){
+            case "legendary":
+                this.valueInKeys = 50;
+                return;
+            case "epic":
+                this.valueInKeys = 15;
+                return;
+            case "rare":
+                this.valueInKeys = 7;
+                return;
+            case "uncommon":
+                this.valueInKeys = 2;
+                return;
+            case "common":
+                this.valueInKeys = 1;
+                return;
+        }
     }
 }
