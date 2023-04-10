@@ -4,9 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import caseOpening.logIn.User;
+import caseOpening.tools.WeaponNameComparator;
+import caseOpening.tools.WeaponRarityComparator;
 import caseOpening.weapons.Weapons;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -99,29 +102,49 @@ public class homePageController implements Initializable{
 
     }
 
+    /**
+     * gets the active users weapons and adds them to the "Your Weapons" pane
+     * <p>
+     * adds a value and a "sell" button
+     */
     @FXML
     public void getUserWeapons(){
         double layoutX = 10;
         double layoutY = 10;
-        for(Weapons weapon : activeUser.getWeapons()){
+        List<Weapons> weapons = activeUser.getWeapons();
+        weapons.sort(new WeaponRarityComparator());
+        for(Weapons weapon : weapons){
             try{
+                ImageView keyImage = new ImageView(new Image(new FileInputStream("./images/keyBlue.png")));
+                keyImage.setFitWidth(25);
+                keyImage.setFitHeight(25);
+                Label keyAmountLabel = new Label();
+                keyAmountLabel.setText(": " + weapon.getValue());
+                keyAmountLabel.setStyle("-fx-text-fill: white;");
+                
                 ImageView image = new ImageView(weapon.getImage());
                 image.setFitWidth(160);
                 image.setFitHeight(100);
                 Button sellButton = new Button();
                 sellButton.setText("Sell");
+                sellButton.setStyle("-fx-background-color: #49768f; -fx-text-fill: white;");
+
+                //Layout on the AnchorPane
                 AnchorPane.setTopAnchor(image, layoutY);
                 AnchorPane.setLeftAnchor(image, layoutX);
                 AnchorPane.setTopAnchor(sellButton, layoutY+ 105);
                 AnchorPane.setLeftAnchor(sellButton, layoutX + 60);
-                YourWeaponsContent.getChildren().addAll(image, sellButton);
+                AnchorPane.setTopAnchor(keyImage, layoutY + 105);
+                AnchorPane.setLeftAnchor(keyImage, layoutX + 100);
+                AnchorPane.setTopAnchor(keyAmountLabel, layoutY + 110);
+                AnchorPane.setLeftAnchor(keyAmountLabel, layoutX + 125);
+                YourWeaponsContent.getChildren().addAll(image, sellButton, keyImage, keyAmountLabel);
                 YourWeaponsPane.setContent(YourWeaponsContent);
                 layoutX += 200;
                 if(layoutX >= 600){
                     layoutY += 150;
                     layoutX = 10;
                     if(layoutY > YourWeaponsContent.getPrefHeight()-30){
-                        System.out.println("Got here");
                         YourWeaponsContent.setPrefHeight(layoutY + image.getFitHeight() + 50);
                     }
                 }
