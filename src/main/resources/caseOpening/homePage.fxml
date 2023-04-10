@@ -94,12 +94,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ScrollPane fx:id="YourWeaponsPane" hbarPolicy="NEVER" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="599.0" style="-fx-background-color: none; visibility: false;" vbarPolicy="ALWAYS">
+            <ScrollPane fx:id="YourWeaponsPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="600.0" style="-fx-background-color: none; -fx-border-color: gray; visibility: true;">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="324.0" prefWidth="599.0" style="-fx-background-color: #2a353b;" />
+                <AnchorPane fx:id="YourWeaponsContent" minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="600.0" style="-fx-background-color: #2a353b; -fx-border-radius: 5px;" />
               </content>
             </ScrollPane>
-            <Pane fx:id="ShopPane" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="599.0" style="-fx-border-color: gray; -fx-border-radius: 2px;">
+            <Pane fx:id="ShopPane" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="599.0" style="-fx-border-color: gray; -fx-border-radius: 2px; visibility: false;">
                <children>
                   <ImageView fitHeight="141.0" fitWidth="214.0" layoutX="45.0" layoutY="30.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
