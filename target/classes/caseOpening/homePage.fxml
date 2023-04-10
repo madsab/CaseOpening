@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caseOpening.fxui.homePageController">
@@ -30,8 +37,11 @@
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="shootingRangeButton" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#showShootingRange" style="-fx-background-color: none;">
+            <Button fx:id="ShopLayoutButton" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#showShopLayout" style="-fx-background-color: none;">
                <graphic>
                   <ImageView fx:id="shootingRangeIcon" fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -39,6 +49,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children></Pane>
       <Pane layoutX="76.0" layoutY="14.0" opacity="0.63" prefHeight="198.0" prefWidth="298.0" style="-fx-background-color: black;">
@@ -71,5 +84,119 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Label>
+      <Pane fx:id="ShopLayoutPane" layoutX="67.0" layoutY="7.0" prefHeight="377.0" prefWidth="621.0" style="-fx-background-color: #2a353b; visibility: true;">
+         <children>
+            <Button fx:id="ShopButton" alignment="CENTER" layoutX="17.0" layoutY="13.0" mnemonicParsing="false" onAction="#showShop" style="-fx-background-color: none; -fx-border-color: gray; -fx-border-style: solid solid none solid; -fx-border-radius: 5px;" text="Shop" textFill="WHITE">
+               <opaqueInsets>
+                  <Insets bottom="100.0" />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ScrollPane fx:id="YourWeaponsPane" hbarPolicy="NEVER" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="599.0" style="-fx-background-color: none; visibility: false;" vbarPolicy="ALWAYS">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="324.0" prefWidth="599.0" style="-fx-background-color: #2a353b;" />
+              </content>
+            </ScrollPane>
+            <Pane fx:id="ShopPane" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="599.0" style="-fx-border-color: gray; -fx-border-radius: 2px;">
+               <children>
+                  <ImageView fitHeight="141.0" fitWidth="214.0" layoutX="45.0" layoutY="30.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="141.0" fitWidth="238.0" layoutX="338.0" layoutY="30.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../images/weapons-SpecialItem.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="45.0" layoutY="6.0" text="Featured Items" textFill="WHITE">
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <Label layoutX="45.0" layoutY="179.0" text="Daily Items" textFill="WHITE">
+                     <effect>
+                        <Glow level="0.95" />
+                     </effect>
+                  </Label>
+                  <Line endX="353.5" layoutX="198.0" layoutY="23.0" startX="-100.0">
+                     <stroke>
+                        <LinearGradient endX="0.9809976247030879" endY="1.0" startX="0.4323040380047506">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.15789473056793213" green="0.2526315748691559" blue="0.4736842215061188" opacity="0.6700000166893005" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.4091130495071411" green="0.4875730872154236" blue="0.6052631735801697" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </stroke>
+                  </Line>
+                  <Line endX="349.5" layoutX="205.0" layoutY="196.0" startX="-117.5">
+                     <stroke>
+                        <LinearGradient endX="0.9809976247030879" endY="1.0" startX="0.4323040380047506">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.15789473056793213" green="0.2526315748691559" blue="0.4736842215061188" opacity="0.6700000166893005" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.4091130495071411" green="0.4875730872154236" blue="0.6052631735801697" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </stroke>
+                  </Line>
+                  <ImageView fitHeight="89.0" fitWidth="125.0" layoutX="42.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="125.0" layoutX="172.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="82.0" fitWidth="125.0" layoutX="302.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="125.0" layoutX="431.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
+            <Button fx:id="YourWeaponsButton" alignment="CENTER" layoutX="64.0" layoutY="13.0" mnemonicParsing="false" onAction="#showYourWeapons" style="-fx-background-color: none; -fx-border-radius: 5px;" text="Your Weapons" textFill="WHITE">
+               <opaqueInsets>
+                  <Insets bottom="100.0" />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label fx:id="amountKeysLabel2" layoutX="573.0" layoutY="17.0" text=": 6" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="keyImage2" fitHeight="37.0" fitWidth="37.0" layoutX="535.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../images/keyBlue.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
