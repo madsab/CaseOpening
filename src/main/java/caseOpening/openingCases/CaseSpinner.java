@@ -4,7 +4,6 @@ package caseOpening.openingCases;
 
 import java.io.IOException;
 
-import caseOpening.fileWriting.UserFileWriterReader;
 import caseOpening.logIn.User;
 import caseOpening.weapons.Weapons;
 import javafx.animation.KeyFrame;
