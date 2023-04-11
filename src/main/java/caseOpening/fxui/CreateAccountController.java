@@ -18,11 +18,17 @@ public class CreateAccountController {
     @FXML private Label createdUserResponse;
 
     @FXML
-    public void createNewAccount(){
+    public void createNewAccount(ActionEvent event) throws IOException{
         try {
             new User(createdUsername.getText(), createdPassword.getText()).addUserToFile("src/main/resources/caseOpening/UserOverview.txt");;
             createdUserResponse.setText("User created");
             createdUserResponse.setStyle("-fx-text-fill: green;");
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("caseOpening/homePage.fxml"));
+            Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
         } catch (Exception e){
             if(e.getClass().equals(IllegalArgumentException.class)){
                 createdUserResponse.setText("Username can't have special characters. \nPassword must have one number and one capital letter");
