@@ -84,7 +84,7 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Label>
-      <Pane fx:id="ShopLayoutPane" layoutX="67.0" layoutY="7.0" prefHeight="377.0" prefWidth="621.0" style="-fx-background-color: #2a353b; visibility: true;">
+      <Pane fx:id="ShopLayoutPane" layoutX="67.0" layoutY="7.0" prefHeight="377.0" prefWidth="621.0" style="-fx-background-color: #2a353b; visibility: false;">
          <children>
             <Button fx:id="ShopButton" alignment="CENTER" layoutX="17.0" layoutY="13.0" mnemonicParsing="false" onAction="#showShop" style="-fx-background-color: none; -fx-border-color: gray; -fx-border-style: solid solid none solid; -fx-border-radius: 5px;" text="Shop" textFill="WHITE">
                <opaqueInsets>
@@ -105,11 +105,17 @@
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <ImageView fx:id="WeaponTopRightShop" fitHeight="141.0" fitWidth="238.0" layoutX="338.0" layoutY="30.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-SpecialItem.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="45.0" layoutY="6.0" text="Featured Items" textFill="WHITE">
                      <effect>
@@ -161,22 +167,39 @@
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <ImageView fx:id="WeaponBottom2Shop" fitHeight="89.0" fitWidth="125.0" layoutX="172.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <ImageView fx:id="WeaponBottom3Shop" fitHeight="82.0" fitWidth="125.0" layoutX="302.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <ImageView fx:id="WeaponBottom4Shop" fitHeight="89.0" fitWidth="125.0" layoutX="431.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
+                  <Label fx:id="ShopResponse" alignment="CENTER" layoutX="183.0" layoutY="156.0" prefHeight="47.0" prefWidth="233.0" style="visibility: false;" text="Not enough keys" textFill="RED">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Label>
                </children></Pane>
             <Button fx:id="YourWeaponsButton" alignment="CENTER" layoutX="64.0" layoutY="13.0" mnemonicParsing="false" onAction="#showYourWeapons" style="-fx-background-color: none; -fx-border-radius: 5px;" text="Your Weapons" textFill="WHITE">
                <opaqueInsets>
