@@ -139,7 +139,7 @@ public class UserFileWriterReader {
                         String[] weapons = line.substring(line.indexOf("weapons") + 8).split(",");                        
                         for(String weapon : weapons){
                             String[] s = weapon.replace(")", "").split("\\(");
-                            returnWeapons.add(new Weapons(35, 25, s[0], "weapons-" + s[0] + ".jpg", s[1]));
+                            returnWeapons.add(new Weapons(s[0], "weapons-" + s[0] + ".jpg", s[1]));
                         } 
                     } catch (Exception e){
                         
