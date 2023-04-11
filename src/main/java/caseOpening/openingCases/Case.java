@@ -7,18 +7,24 @@ import caseOpening.weapons.Weapons;
 
 public abstract class Case {
     protected List<Weapons> availableWeapons = new ArrayList<>();
+    protected List<Weapons> availableKnifes = new ArrayList<>();
 
-    public Case(List<Weapons> availableWeapons){
-        this.availableWeapons = availableWeapons;
+    public Case(List<Weapons> availableWeapons, List<Weapons> availableKnifes){
+        for (Weapons weapon : availableWeapons){
+            this.availableWeapons.add(weapon);
+        }
+        for (Weapons weapon : availableKnifes){
+            this.availableKnifes.add(weapon);
+        }
     }
 
     public Weapons getPrizeWeapon(){
         int winningNumber = (int)Math.floor(Math.random()*1000+1);
-        if(winningNumber < 10){
+        if(winningNumber < 50){
             return pickrandomWeapon("legendary");
-        } else if (winningNumber < 75){
+        } else if (winningNumber < 175){
             return pickrandomWeapon("epic");
-        } else if (winningNumber < 200){
+        } else if (winningNumber < 300){
             return pickrandomWeapon("rare");
         } else if (winningNumber < 500){
             return pickrandomWeapon("uncommon");
@@ -43,5 +49,10 @@ public abstract class Case {
         } catch (Exception e){
             return null;
         }
+    }
+
+    public Weapons pickRandomKnife(){
+        int choosenIndex = (int)Math.floor(Math.random()*availableKnifes.size());
+        return availableKnifes.get(choosenIndex);
     }
 }

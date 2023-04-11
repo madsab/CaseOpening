@@ -5,6 +5,7 @@ package caseOpening.openingCases;
 import java.io.IOException;
 
 import caseOpening.logIn.User;
+import caseOpening.weapons.Knife;
 import caseOpening.weapons.Weapons;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -61,7 +62,11 @@ public class CaseSpinner {
                         if(image.getLayoutX() > 68 && image.getLayoutX() < 268 && !hasChosenWeapon){
                             getUserPrize();
                             try {
-                                image.setImage(currentWonWeapon.getImage());
+                                if(currentWonWeapon.getRarity().equals("legendary")){
+                                    image.setImage(((Knife)currentWonWeapon).getHidingImage());
+                                } else {
+                                    image.setImage(currentWonWeapon.getImage());
+                                }
                             } catch (IOException e1) {
                                 System.out.println("Holder meg til ett våpen");
                             }
@@ -105,6 +110,9 @@ public class CaseSpinner {
         if(!hasChosenWeapon){
             this.hasChosenWeapon = true;
             Weapons weaponWon = activeCase.getPrizeWeapon();
+            if(weaponWon.getRarity().equals("legendary")){
+                weaponWon = activeCase.pickRandomKnife();
+            }
             this.currentWonWeapon = weaponWon;
             return weaponWon;
         }
