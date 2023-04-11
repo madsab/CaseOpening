@@ -20,13 +20,13 @@ public abstract class Case {
 
     public Weapons getPrizeWeapon(){
         int winningNumber = (int)Math.floor(Math.random()*1000+1);
-        if(winningNumber < 50){
+        if(winningNumber < 75){
             return pickrandomWeapon("legendary");
-        } else if (winningNumber < 175){
+        } else if (winningNumber < 200){
             return pickrandomWeapon("epic");
         } else if (winningNumber < 300){
             return pickrandomWeapon("rare");
-        } else if (winningNumber < 500){
+        } else if (winningNumber < 600){
             return pickrandomWeapon("uncommon");
         } else {
             return pickrandomWeapon("common");
