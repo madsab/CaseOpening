@@ -231,9 +231,12 @@ public class UserFileWriterReader {
         List<Weapons> aquiredWeapons = (List<Weapons>)getFromUser("weapons", username, filePath);
         aquiredWeapons.sort(new WeaponNameComparator());
         String weaponsAsString = "";
+        boolean allreadyRemoved = false;
         for( Weapons aquiredWeapon : aquiredWeapons){
-            if(!aquiredWeapon.equals(weapon)){
+            if(!aquiredWeapon.getName().equals(weapon.getName()) || allreadyRemoved){
                 weaponsAsString += aquiredWeapon.getName() + "(" + aquiredWeapon.getRarity() + "),";
+            } else {
+                allreadyRemoved = true;
             }
         }
         changeUser(username, "weapons", weaponsAsString, filePath);

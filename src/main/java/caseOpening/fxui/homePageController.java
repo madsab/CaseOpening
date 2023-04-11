@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import caseOpening.logIn.User;
-import caseOpening.tools.WeaponNameComparator;
 import caseOpening.tools.WeaponRarityComparator;
 import caseOpening.weapons.Weapons;
 import javafx.event.ActionEvent;
@@ -16,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,7 +34,6 @@ public class homePageController implements Initializable{
     @FXML private Label homePageInfo, amountKeysLabel,amountKeysLabel2, usernameShowLabel;
     @FXML private Pane ShopPane, ShopLayoutPane;
     @FXML private ScrollPane YourWeaponsPane;
-    @FXML private AnchorPane YourWeaponsContent;
     private String CaseOpeningInfo = "Place your bets and push your luck in an exiting \n case opening. You can aquire different \n weapons in different rarities. From common \n pistols to the legendary knife. Best of luck";
     private User activeUser;
     //Takes user to CaseOpening main page
@@ -94,14 +93,25 @@ public class homePageController implements Initializable{
         getUserWeapons();
     }
     @FXML
-    public void buyWeapon(){
+    private void buyWeapon(){
 
     }
+
     @FXML
-    public void sellWeapon(Weapons weaponToSell){
-
+    private void sellWeapon(ActionEvent event){
+        String weaponName = ((Button)event.getSource()).getId();
+        for (Weapons weapon : activeUser.getWeapons()){
+            if(weaponName.equals(weapon.getName())){
+                activeUser.addKeys(weapon.getValue());
+                activeUser.removeWeapon(weapon);
+                break;
+            }
+        }
+        amountKeysLabel.setText(": " + this.activeUser.getKeys());
+        amountKeysLabel2.setText(": " + this.activeUser.getKeys());
+        getUserWeapons();
+        
     }
-
     /**
      * gets the active users weapons and adds them to the "Your Weapons" pane
      * <p>
@@ -113,47 +123,59 @@ public class homePageController implements Initializable{
         double layoutY = 10;
         List<Weapons> weapons = activeUser.getWeapons();
         weapons.sort(new WeaponRarityComparator());
-        for(Weapons weapon : weapons){
-            try{
-                ImageView keyImage = new ImageView(new Image(new FileInputStream("./images/keyBlue.png")));
-                keyImage.setFitWidth(25);
-                keyImage.setFitHeight(25);
-                Label keyAmountLabel = new Label();
-                keyAmountLabel.setText(": " + weapon.getValue());
-                keyAmountLabel.setStyle("-fx-text-fill: white;");
-                
-                ImageView image = new ImageView(weapon.getImage());
-                image.setFitWidth(160);
-                image.setFitHeight(100);
-                Button sellButton = new Button();
-                sellButton.setText("Sell");
-                sellButton.setStyle("-fx-background-color: #49768f; -fx-text-fill: white;");
+        AnchorPane YourWeaponsContent = new AnchorPane();
+        YourWeaponsContent.setStyle("-fx-background-color: #2a353b;");
+        YourWeaponsContent.setPrefHeight(YourWeaponsPane.getPrefHeight());
+        YourWeaponsContent.setPrefWidth(YourWeaponsPane.getPrefWidth());
+        if(!weapons.isEmpty()){
+            for(Weapons weapon : weapons){
+                try{
+                    ImageView keyImage = new ImageView(new Image(new FileInputStream("./images/keyBlue.png")));
+                    keyImage.setFitWidth(25);
+                    keyImage.setFitHeight(25);
+                    Label keyAmountLabel = new Label();
+                    keyAmountLabel.setText(": " + weapon.getValue());
+                    keyAmountLabel.setStyle("-fx-text-fill: white;");
+                    
+                    ImageView image = new ImageView(weapon.getImage());
+                    image.setFitWidth(160);
+                    image.setFitHeight(100);
+                    Button sellButton = new Button();
+                    sellButton.setText("Sell");
+                    sellButton.setStyle("-fx-background-color: #49768f; -fx-text-fill: white;");
+                    sellButton.setCursor(Cursor.HAND);
+                    sellButton.setId(weapon.getName());
+                    sellButton.setOnAction(event -> {
+                        sellWeapon(event);
+                    });
 
-                //Layout on the AnchorPane
-                AnchorPane.setTopAnchor(image, layoutY);
-                AnchorPane.setLeftAnchor(image, layoutX);
-                AnchorPane.setTopAnchor(sellButton, layoutY+ 105);
-                AnchorPane.setLeftAnchor(sellButton, layoutX + 60);
-                AnchorPane.setTopAnchor(keyImage, layoutY + 105);
-                AnchorPane.setLeftAnchor(keyImage, layoutX + 100);
-                AnchorPane.setTopAnchor(keyAmountLabel, layoutY + 110);
-                AnchorPane.setLeftAnchor(keyAmountLabel, layoutX + 125);
-                YourWeaponsContent.getChildren().addAll(image, sellButton, keyImage, keyAmountLabel);
-                YourWeaponsPane.setContent(YourWeaponsContent);
-                layoutX += 200;
-                if(layoutX >= 600){
-                    layoutY += 150;
-                    layoutX = 10;
-                    if(layoutY > YourWeaponsContent.getPrefHeight()-30){
-                        YourWeaponsContent.setPrefHeight(layoutY + image.getFitHeight() + 50);
+                    //Layout on the AnchorPane
+                    AnchorPane.setTopAnchor(image, layoutY);
+                    AnchorPane.setLeftAnchor(image, layoutX);
+                    AnchorPane.setTopAnchor(sellButton, layoutY+ 105);
+                    AnchorPane.setLeftAnchor(sellButton, layoutX + 60);
+                    AnchorPane.setTopAnchor(keyImage, layoutY + 105);
+                    AnchorPane.setLeftAnchor(keyImage, layoutX + 100);
+                    AnchorPane.setTopAnchor(keyAmountLabel, layoutY + 110);
+                    AnchorPane.setLeftAnchor(keyAmountLabel, layoutX + 125);
+                    YourWeaponsContent.getChildren().addAll(image, sellButton, keyImage, keyAmountLabel);
+                    YourWeaponsPane.setContent(YourWeaponsContent);
+                    layoutX += 200;
+                    if(layoutX >= 600){
+                        layoutY += 150;
+                        layoutX = 10;
+                        if(layoutY > YourWeaponsContent.getPrefHeight()-30){
+                            YourWeaponsContent.setPrefHeight(layoutY + image.getFitHeight() + 50);
+                        }
                     }
+                } catch (Exception e){
+                    e.printStackTrace();
+                    System.out.println("Couldn't find weapons");                
                 }
-            } catch (Exception e){
-                e.printStackTrace();
-                System.out.println("Couldn't find weapons");                
             }
+        } else {
+            YourWeaponsPane.setContent(YourWeaponsContent);
         }
-        
         
     }
 

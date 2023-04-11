@@ -139,6 +139,11 @@ public class User {
         fw.addWeapon(this.getUsername(), weapon, "src/main/resources/caseOpening/ActiveUser.txt");
     }
 
+    public void removeWeapon(Weapons weapons){
+        this.aqquiredWeapons.remove(weapons);
+        fw.removeWeapon(this.getUsername(), weapons, this.filePath);
+    }
+
     public void addKeys(int amount){
         if(amount < 0){
             throw new IllegalArgumentException("Can't be negative amount");
