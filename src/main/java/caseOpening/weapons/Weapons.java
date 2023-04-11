@@ -42,16 +42,16 @@ public class Weapons {
         return this.valueInKeys;
     }
 
-    private void setValue(String rarity){
+    public void setValue(String rarity){
         switch(rarity){
             case "legendary":
-                this.valueInKeys = 50;
+                this.valueInKeys = 169;
                 return;
             case "epic":
-                this.valueInKeys = 15;
+                this.valueInKeys = 69;
                 return;
             case "rare":
-                this.valueInKeys = 7;
+                this.valueInKeys = 25;
                 return;
             case "uncommon":
                 this.valueInKeys = 2;
