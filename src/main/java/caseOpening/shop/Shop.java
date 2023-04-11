@@ -24,11 +24,11 @@ public class Shop {
             throw new IllegalArgumentException("Top2Images can only contain 2 images, and Bottom4images can only contain 4 images");
         }
         for (Weapons weapon : Top2Images){
-            weapon.setValue(weapon.getValue() + (weapon.getValue()*4));
+            weapon.setValue(weapon.getValue()*3);
             this.Top2Images.add(weapon);
         }   
         for (Weapons weapon : Bottom4Images){
-            weapon.setValue(weapon.getValue() + (weapon.getValue()*2));
+            weapon.setValue(weapon.getValue()*2);
             this.Bottom4Images.add(weapon);
         }
         this.imagesToReplace = imagesToReplace;
@@ -60,12 +60,12 @@ public class Shop {
                 } else {
                     keyImage.setFitHeight(20);
                     keyImage.setFitWidth(20);
-                    keyImage.setLayoutX(image.getLayoutX() + 80);
+                    keyImage.setLayoutX(image.getLayoutX() + 75);
                     keyImage.setLayoutY(image.getLayoutY());
                     image.setImage(Bottom4Images.get(counter-2).getImage());
                     image.setId(Bottom4Images.get(counter-2).getName());
                     value.setText(": " + (Bottom4Images.get(counter-2).getValue()));
-                    value.setLayoutX(image.getLayoutX() + 100);
+                    value.setLayoutX(image.getLayoutX() + 95);
                     value.setLayoutY(image.getLayoutY());
                 }
                 this.ShopPane.getChildren().addAll(keyImage, value);
@@ -81,14 +81,16 @@ public class Shop {
         String weaponName = event.getPickResult().getIntersectedNode().getId();
         for (Weapons weapon : Top2Images){
             if(weapon.getName().equals(weaponName)){
-                user.addWeapon(weapon);
                 user.removeKeys(weapon.getValue());
+                weapon.setValue(weapon.getRarity());
+                user.addWeapon(weapon);
             }
         }
         for (Weapons weapon : Bottom4Images){
             if(weapon.getName().equals(weaponName)){
-                user.addWeapon(weapon);
                 user.removeKeys(weapon.getValue());
+                weapon.setValue(weapon.getRarity());
+                user.addWeapon(weapon);
             }
         }
     }
