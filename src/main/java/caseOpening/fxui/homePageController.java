@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 public class homePageController implements Initializable{
     @FXML private Button ShopLayoutButton, caseButton, startAssignmentButton, ShopButton, YourWeaponsButton;
     @FXML private ImageView lobbyCharacter, caseIcon, ShopIcon, homePageBackground, keyImage, keyImage2, WeaponTopLeftShop, WeaponTopRightShop, WeaponBottom1Shop, WeaponBottom2Shop, WeaponBottom3Shop, WeaponBottom4Shop;
-    @FXML private Label homePageInfo, amountKeysLabel,amountKeysLabel2, usernameShowLabel;
+    @FXML private Label homePageInfo, amountKeysLabel,amountKeysLabel2, usernameShowLabel, ShopResponse;
     @FXML private Pane ShopPane, ShopLayoutPane;
     @FXML private ScrollPane YourWeaponsPane;
     private String CaseOpeningInfo = "Place your bets and push your luck in an exiting \n case opening. You can aquire different \n weapons in different rarities. From common \n pistols to the legendary knife. Best of luck";
@@ -96,12 +96,22 @@ public class homePageController implements Initializable{
         ShopButton.setStyle("-fx-background-color: none;");
         ShopPane.setVisible(false);
         YourWeaponsPane.setVisible(true);
+        ShopResponse.setVisible(false);
         getUserWeapons();
     }
     @FXML
     private void buyWeapon(MouseEvent event){
-        shop.buyWeapon(event, this.activeUser);
-        amountKeysLabel2.setText(": " + activeUser.getKeys());
+        try{
+            shop.buyWeapon(event, this.activeUser);
+            amountKeysLabel2.setText(": " + activeUser.getKeys());
+            ShopResponse.setVisible(true);
+            ShopResponse.setStyle("-fx-text-fill: green;");
+            ShopResponse.setText("Purchased");
+        } catch (IllegalStateException e){
+            ShopResponse.setVisible(true);
+            ShopResponse.setStyle("-fx-text-fill: red;");
+            ShopResponse.setText("Not enough keys");
+        }
     }
 
     @FXML
