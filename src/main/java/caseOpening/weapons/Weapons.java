@@ -61,4 +61,11 @@ public class Weapons {
                 return;
         }
     }
+
+    public void setValue(int value){
+        if(value < 0){
+            throw new IllegalArgumentException("No negative value");
+        }
+        this.valueInKeys = value;
+    }
 }

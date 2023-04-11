@@ -4,11 +4,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import caseOpening.logIn.User;
+import caseOpening.shop.Shop;
 import caseOpening.tools.WeaponRarityComparator;
+import caseOpening.weapons.Knife;
 import caseOpening.weapons.Weapons;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,18 +28,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class homePageController implements Initializable{
     @FXML private Button ShopLayoutButton, caseButton, startAssignmentButton, ShopButton, YourWeaponsButton;
-    @FXML private ImageView lobbyCharacter, caseIcon, shootingRangeIcon, homePageBackground, keyImage, keyImage2;
+    @FXML private ImageView lobbyCharacter, caseIcon, ShopIcon, homePageBackground, keyImage, keyImage2, WeaponTopLeftShop, WeaponTopRightShop, WeaponBottom1Shop, WeaponBottom2Shop, WeaponBottom3Shop, WeaponBottom4Shop;
     @FXML private Label homePageInfo, amountKeysLabel,amountKeysLabel2, usernameShowLabel;
     @FXML private Pane ShopPane, ShopLayoutPane;
     @FXML private ScrollPane YourWeaponsPane;
     private String CaseOpeningInfo = "Place your bets and push your luck in an exiting \n case opening. You can aquire different \n weapons in different rarities. From common \n pistols to the legendary knife. Best of luck";
     private User activeUser;
+    private Shop shop;
     //Takes user to CaseOpening main page
     @FXML
     public void toCaseOpening(ActionEvent event) throws IOException{
@@ -93,8 +99,9 @@ public class homePageController implements Initializable{
         getUserWeapons();
     }
     @FXML
-    private void buyWeapon(){
-
+    private void buyWeapon(MouseEvent event){
+        shop.buyWeapon(event, this.activeUser);
+        amountKeysLabel2.setText(": " + activeUser.getKeys());
     }
 
     @FXML
@@ -183,14 +190,26 @@ public class homePageController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.activeUser = new User("src/main/resources/caseOpening/UserOverview.txt");
+        List<Weapons> top2Images = new ArrayList<>(Arrays.asList(
+            new Knife("BlackHawk", "weapons-BlackHawk.jpg", "legendary"), 
+            new Knife("BloodMoney", "weapons-BloodMoney.jpg", "legendary")));
+        List<Weapons> bottom4Images = new ArrayList<>(Arrays.asList(
+            new Weapons("SniperBlueFire", "weapons-SniperBlueFire.jpg", "epic"),
+            new Weapons("PistolSilencedBlueBoy", "weapons-PistolSilencedBlueBoy.jpg", "rare"),
+            new Weapons("AK-47Rebel", "weapons-AK47Rebel.jpg", "uncommon"),
+            new Weapons("SniperMSRTiger", "weapons-SniperMSRTiger.jpg", "uncommon")
+        ));
+        this.shop = new Shop(top2Images, bottom4Images, activeUser,ShopPane, WeaponTopLeftShop, WeaponTopRightShop, WeaponBottom1Shop, WeaponBottom2Shop, WeaponBottom3Shop, WeaponBottom4Shop);
+        this.shop.addToShop();
         //On load set these images
         try {
             homePageBackground.setImage(new Image(new FileInputStream("./images/csgo_nuke_background.jpg")));
             caseIcon.setImage(new Image(new FileInputStream("./images/case_icon.png")));
-            shootingRangeIcon.setImage(new Image(new FileInputStream("./images/shootingRange_icon.png")));
+            ShopIcon.setImage(new Image(new FileInputStream("./images/ShopIcon.png")));
             lobbyCharacter.setImage(new Image(new FileInputStream("./images/soldier_standAnimation_lobby.gif")));
             keyImage.setImage(new Image(new FileInputStream("./images/keyBlue.png")));
             keyImage2.setImage(new Image(new FileInputStream("./images/keyBlue.png")));
+            
 
             amountKeysLabel.setText(": " + this.activeUser.getKeys());
             amountKeysLabel2.setText(": " + this.activeUser.getKeys());

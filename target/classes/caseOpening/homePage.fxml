@@ -43,7 +43,7 @@
             </Button>
             <Button fx:id="ShopLayoutButton" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#showShopLayout" style="-fx-background-color: none;">
                <graphic>
-                  <ImageView fx:id="shootingRangeIcon" fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ShopIcon" fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../images/shootingRange_icon.png" />
                      </image>
@@ -94,19 +94,19 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ScrollPane fx:id="YourWeaponsPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="600.0" style="-fx-background-color: none; -fx-border-color: gray; visibility: true;">
+            <ScrollPane fx:id="YourWeaponsPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="600.0" style="-fx-background-color: none; -fx-border-color: gray; visibility: false;">
               <content>
                 <AnchorPane fx:id="YourWeaponsContent" minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="600.0" style="-fx-background-color: #2a353b; -fx-border-radius: 5px;" />
               </content>
             </ScrollPane>
-            <Pane fx:id="ShopPane" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="599.0" style="-fx-border-color: gray; -fx-border-radius: 2px; visibility: false;">
+            <Pane fx:id="ShopPane" layoutX="12.0" layoutY="39.0" prefHeight="324.0" prefWidth="599.0" style="-fx-border-color: gray; -fx-border-radius: 2px; visibility: true;">
                <children>
-                  <ImageView fitHeight="141.0" fitWidth="214.0" layoutX="45.0" layoutY="30.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="WeaponTopLeftShop" fitHeight="141.0" fitWidth="214.0" layoutX="45.0" layoutY="30.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="141.0" fitWidth="238.0" layoutX="338.0" layoutY="30.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="WeaponTopRightShop" fitHeight="141.0" fitWidth="238.0" layoutX="338.0" layoutY="30.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-SpecialItem.jpg" />
                      </image>
@@ -157,22 +157,22 @@
                         </LinearGradient>
                      </stroke>
                   </Line>
-                  <ImageView fitHeight="89.0" fitWidth="125.0" layoutX="42.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="WeaponBottom1Shop" fitHeight="89.0" fitWidth="125.0" layoutX="42.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="89.0" fitWidth="125.0" layoutX="172.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="WeaponBottom2Shop" fitHeight="89.0" fitWidth="125.0" layoutX="172.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="82.0" fitWidth="125.0" layoutX="302.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="WeaponBottom3Shop" fitHeight="82.0" fitWidth="125.0" layoutX="302.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="89.0" fitWidth="125.0" layoutX="431.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="WeaponBottom4Shop" fitHeight="89.0" fitWidth="125.0" layoutX="431.0" layoutY="211.0" onMouseClicked="#buyWeapon" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../images/weapons-PistolNightSky.jpg" />
                      </image>
