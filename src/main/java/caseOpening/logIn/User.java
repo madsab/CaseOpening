@@ -186,7 +186,7 @@ public class User {
      */
     private boolean isValidPassword(String password){
         // password contains at least one capital letter and one number
-        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?!.*\\s).+$");
+        return password.matches("^(?=.*[A-Z])(?=.*\\d)(?!.*\\s).*$");
         
     }
 
