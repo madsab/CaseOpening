@@ -23,11 +23,16 @@ public class Weapons {
     /*
      * Getter-methods
      */
-    public Image getImage() throws IOException{
+    public Image getImage(){
         //Gets bytes from image file and makes new image for imageView
-        InputStream stream = new FileInputStream("./images/"+ this.weaponImage);
-        Image wImage = new Image(stream);
-        return wImage;
+        try{
+            InputStream stream = new FileInputStream("./images/"+ this.weaponImage);
+            Image wImage = new Image(stream);
+            return wImage;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String getName() {
