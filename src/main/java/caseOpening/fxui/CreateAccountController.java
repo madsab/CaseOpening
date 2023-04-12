@@ -2,6 +2,7 @@ package caseOpening.fxui;
 
 import java.io.IOException;
 
+import caseOpening.fileWriting.UserFileWriterReader;
 import caseOpening.logIn.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,13 +17,16 @@ import javafx.stage.Stage;
 public class CreateAccountController {
     @FXML private TextField createdUsername, createdPassword;
     @FXML private Label createdUserResponse;
+    @FXML private UserFileWriterReader fr = new UserFileWriterReader();
 
     @FXML
     public void createNewAccount(ActionEvent event) throws IOException{
         try {
-            new User(createdUsername.getText(), createdPassword.getText()).addUserToFile("src/main/resources/caseOpening/UserOverview.txt");;
+            User loginUser = new User(createdUsername.getText(), createdPassword.getText());
+            loginUser.addUserToFile("src/main/resources/caseOpening/UserOverview.txt");
             createdUserResponse.setText("User created");
             createdUserResponse.setStyle("-fx-text-fill: green;");
+            fr.overrideFile(loginUser.getUsername(), "src/main/resources/caseOpening/ActiveUser.txt");
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("caseOpening/homePage.fxml"));
             Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
             Scene scene = new Scene(root);
