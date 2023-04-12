@@ -83,6 +83,7 @@ public class UserFileWriterReaderTest {
         assertThrows(IllegalArgumentException.class , () -> {fileReaderWriter.changeUser(testUser.getUsername(), "username", "&#/$78", testFilepath);}, "Should throw on invalid username");
         fileReaderWriter.changeUser(testUser.getUsername(), "username", "NotTestUser", testFilepath);
         assertEquals("NotTestUser", fileReaderWriter.getUser("NotTestUser", testFilepath).getUsername());
+ 
     }
 }
 
