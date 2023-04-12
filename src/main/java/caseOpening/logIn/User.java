@@ -120,7 +120,7 @@ public class User {
 
     public void setUsername(String username) {
         if(!isValidUsername(username)){
-            throw new IllegalArgumentException("Not valid username. No symbols or digits");
+            throw new IllegalArgumentException("Not valid username. No symbols or whitespaces");
         }
         this.username = username;
     }
@@ -135,13 +135,21 @@ public class User {
 
     public void addWeapon(Weapons weapon){
         this.aqquiredWeapons.add(weapon);
-        fw.addWeapon(this.getUsername(), weapon, this.filePath);
-        fw.addWeapon(this.getUsername(), weapon, "src/main/resources/caseOpening/ActiveUser.txt");
+        try{
+            fw.addWeapon(this.getUsername(), weapon, this.filePath);
+            fw.addWeapon(this.getUsername(), weapon, "src/main/resources/caseOpening/ActiveUser.txt");
+        } catch (Exception e){
+            System.out.println("Weapon was not written to file because of " + e.getClass());
+        }
     }
 
     public void removeWeapon(Weapons weapons){
         this.aqquiredWeapons.remove(weapons);
-        fw.removeWeapon(this.getUsername(), weapons, this.filePath);
+        try {
+            fw.removeWeapon(this.getUsername(), weapons, this.filePath);
+        } catch (Exception e) {
+            System.out.println("Weapon was not removed from filePath beacuse of " + e.getClass());
+        }
     }
 
     public void addKeys(int amount){
@@ -149,8 +157,12 @@ public class User {
             throw new IllegalArgumentException("Can't be negative amount");
         }
         this.keys += amount;
-        fw.changeUser(this.getUsername(), "keys", String.valueOf(this.getKeys()), this.filePath);
-        fw.changeUser(this.getUsername(), "keys", String.valueOf(this.getKeys()), "src/main/resources/caseOpening/ActiveUser.txt");
+        try {
+            fw.changeUser(this.getUsername(), "keys", String.valueOf(this.getKeys()), this.filePath);
+            fw.changeUser(this.getUsername(), "keys", String.valueOf(this.getKeys()), "src/main/resources/caseOpening/ActiveUser.txt");    
+        } catch (Exception e) {
+            System.out.println("Keys were not changed in file. Error: " + e.getClass());
+        }
     }
 
     public void removeKeys(int amount){
@@ -161,8 +173,12 @@ public class User {
             throw new IllegalStateException("Can't remove more keys than you have");
         }
         this.keys -= amount;
-        fw.changeUser(this.getUsername(), "keys", String.valueOf(this.getKeys()), this.filePath);
-        fw.changeUser(this.getUsername(), "keys", String.valueOf(this.getKeys()), "src/main/resources/caseOpening/ActiveUser.txt");
+        try {
+            fw.changeUser(this.getUsername(), "keys", String.valueOf(this.getKeys()), this.filePath);
+            fw.changeUser(this.getUsername(), "keys", String.valueOf(this.getKeys()), "src/main/resources/caseOpening/ActiveUser.txt");    
+        } catch (Exception e) {
+            System.out.println("Keys were not remooved in file. Error: " + e.getClass());
+        }
     }
 
     /*
@@ -170,13 +186,13 @@ public class User {
      */
     private boolean isValidPassword(String password){
         // password contains at least one capital letter and one number
-        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$");
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?!.*\\s).+$");
         
     }
 
     private boolean isValidUsername(String username){
-        //Check if username contains any of this special characters or numbers
-        return !username.matches("^.*['§*!#$%&/()=?+]");
+        //Check if username contains any of this special characters or whitespaces
+        return username.matches("^[a-zA-Z0-9]+$");
     }
 
     @Override
