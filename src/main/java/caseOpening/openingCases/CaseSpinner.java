@@ -1,9 +1,5 @@
 package caseOpening.openingCases;
 
-
-
-import java.io.IOException;
-
 import caseOpening.logIn.User;
 import caseOpening.weapons.Knife;
 import caseOpening.weapons.Weapons;
@@ -61,14 +57,10 @@ public class CaseSpinner {
                     for (ImageView image : imageList){
                         if(image.getLayoutX() > 68 && image.getLayoutX() < 268 && !hasChosenWeapon){
                             getUserPrize();
-                            try {
-                                if(currentWonWeapon.getRarity().equals("legendary")){
-                                    image.setImage(((Knife)currentWonWeapon).getHidingImage());
-                                } else {
-                                    image.setImage(currentWonWeapon.getImage());
-                                }
-                            } catch (IOException e1) {
-                                System.out.println("Holder meg til ett våpen");
+                            if(currentWonWeapon.getRarity().equals("legendary")){
+                                image.setImage(((Knife)currentWonWeapon).getHidingImage());
+                            } else {
+                                image.setImage(currentWonWeapon.getImage());
                             }
                         }
                     }
@@ -81,11 +73,7 @@ public class CaseSpinner {
             } else {
                 timeline.stop();
                 label.setText(currentWonWeapon.getName());
-                try {
-                    imageView.setImage(currentWonWeapon.getImage());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                imageView.setImage(currentWonWeapon.getImage());
                 pane.setVisible(true);
                 //Reset counters and booleans
                 isSpinning = false;
