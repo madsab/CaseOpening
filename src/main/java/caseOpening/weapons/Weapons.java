@@ -2,7 +2,7 @@ package caseOpening.weapons;
 
 
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import javafx.scene.image.Image;
@@ -31,8 +31,8 @@ public class Weapons {
             return wImage;
         } catch (Exception e){
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public String getName() {
@@ -72,5 +72,10 @@ public class Weapons {
             throw new IllegalArgumentException("No negative value");
         }
         this.valueInKeys = value;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + "(" + this.rarity + ")";
     }
 }
