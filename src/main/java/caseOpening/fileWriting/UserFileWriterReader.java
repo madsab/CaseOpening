@@ -85,6 +85,22 @@ public class UserFileWriterReader {
      * adds new information to an alrady existing user in UserOverview.txt
      */
     public void changeUser(String username, String type, String content, String filepath){
+        User validatorUser = new User(username, filepath, true);
+        switch(type){
+            case "username":
+                validatorUser.setUsername(content);
+                break;
+            case "password":
+                validatorUser.setPassword(content);
+                break;
+            case "keys":
+                validatorUser.setKeys(Integer.parseInt(content));
+                break;
+            case "weapons":
+                break;
+            default:
+                throw new IllegalArgumentException("Not a type");
+        }
         //Finds user in UserOverview.txt
         try {
             FileReader fr = new FileReader(filepath);
@@ -112,7 +128,7 @@ public class UserFileWriterReader {
                 String updatedOverview = sb.toString();
                 overrideFile(updatedOverview, filepath);
             } else {
-                throw new NullPointerException("User not found in " + filepath);
+                throw new IllegalArgumentException("Couldn't find user or change the type");
             }
             
             
@@ -131,7 +147,7 @@ public class UserFileWriterReader {
             String line = br.readLine();
             while (line != null){
                 String usernameLine = line.substring(line.indexOf("username") + 9, line.indexOf(" ", line.indexOf("username")));
-                if(usernameLine.equals(username)){
+                if(usernameLine.equals(username.trim())){
                     String password = line.substring(line.indexOf("password")+ 9, line.indexOf(" ", line.indexOf("password"))); 
                     int keys = Integer.parseInt(line.substring(line.indexOf("keys")+ 5, line.indexOf(" ", line.indexOf("keys"))));
                     List<Weapons> returnWeapons = new ArrayList<>();
