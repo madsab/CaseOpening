@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import caseOpening.logIn.User;
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,21 +13,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class Shop {
-    private List<Weapons> Top2Images = new ArrayList<>();
-    private List<Weapons> Bottom4Images = new ArrayList<>();
+    private List<Weapon> Top2Images = new ArrayList<>();
+    private List<Weapon> Bottom4Images = new ArrayList<>();
     private ImageView[] imagesToReplace;
     private Pane ShopPane;
     private User activeUser;
 
-    public Shop(List<Weapons> Top2Images, List<Weapons> Bottom4Images, User activeUser,Pane ShopPage,ImageView ... imagesToReplace){
+    public Shop(List<Weapon> Top2Images, List<Weapon> Bottom4Images, User activeUser,Pane ShopPage,ImageView ... imagesToReplace){
         if(!(Top2Images.size() == 2) || !(Bottom4Images.size() == 4)){
             throw new IllegalArgumentException("Top2Images can only contain 2 images, and Bottom4images can only contain 4 images");
         }
-        for (Weapons weapon : Top2Images){
+        for (Weapon weapon : Top2Images){
             weapon.setValue(weapon.getValue()*3);
             this.Top2Images.add(weapon);
         }   
-        for (Weapons weapon : Bottom4Images){
+        for (Weapon weapon : Bottom4Images){
             weapon.setValue(weapon.getValue()*2);
             this.Bottom4Images.add(weapon);
         }
@@ -79,14 +79,14 @@ public class Shop {
 
     public void buyWeapon(MouseEvent event, User user){
         String weaponName = event.getPickResult().getIntersectedNode().getId();
-        for (Weapons weapon : Top2Images){
+        for (Weapon weapon : Top2Images){
             if(weapon.getName().equals(weaponName)){
                 user.removeKeys(weapon.getValue());
                 weapon.setValue(weapon.getRarity());
                 user.addWeapon(weapon);
             }
         }
-        for (Weapons weapon : Bottom4Images){
+        for (Weapon weapon : Bottom4Images){
             if(weapon.getName().equals(weaponName)){
                 user.removeKeys(weapon.getValue());
                 weapon.setValue(weapon.getRarity());

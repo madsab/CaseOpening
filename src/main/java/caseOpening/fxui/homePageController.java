@@ -13,7 +13,7 @@ import caseOpening.logIn.User;
 import caseOpening.shop.Shop;
 import caseOpening.tools.WeaponRarityComparator;
 import caseOpening.weapons.Knife;
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -117,7 +117,7 @@ public class homePageController implements Initializable{
     @FXML
     private void sellWeapon(ActionEvent event){
         String weaponName = ((Button)event.getSource()).getId();
-        for (Weapons weapon : activeUser.getWeapons()){
+        for (Weapon weapon : activeUser.getWeapons()){
             if(weaponName.equals(weapon.getName())){
                 activeUser.addKeys(weapon.getValue());
                 activeUser.removeWeapon(weapon);
@@ -138,14 +138,14 @@ public class homePageController implements Initializable{
     public void getUserWeapons(){
         double layoutX = 10;
         double layoutY = 10;
-        List<Weapons> weapons = activeUser.getWeapons();
+        List<Weapon> weapons = activeUser.getWeapons();
         weapons.sort(new WeaponRarityComparator());
         AnchorPane YourWeaponsContent = new AnchorPane();
         YourWeaponsContent.setStyle("-fx-background-color: #2a353b;");
         YourWeaponsContent.setPrefHeight(YourWeaponsPane.getPrefHeight());
         YourWeaponsContent.setPrefWidth(YourWeaponsPane.getPrefWidth());
         if(!weapons.isEmpty()){
-            for(Weapons weapon : weapons){
+            for(Weapon weapon : weapons){
                 try{
                     ImageView keyImage = new ImageView(new Image(new FileInputStream("./images/keyBlue.png")));
                     keyImage.setFitWidth(25);
@@ -200,14 +200,14 @@ public class homePageController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.activeUser = new User("src/main/resources/caseOpening/UserOverview.txt");
-        List<Weapons> top2Images = new ArrayList<>(Arrays.asList(
+        List<Weapon> top2Images = new ArrayList<>(Arrays.asList(
             new Knife("BlackHawk", "weapons-BlackHawk.jpg", "legendary"), 
             new Knife("BloodMoney", "weapons-BloodMoney.jpg", "legendary")));
-        List<Weapons> bottom4Images = new ArrayList<>(Arrays.asList(
-            new Weapons("SniperBlueFire", "weapons-SniperBlueFire.jpg", "epic"),
-            new Weapons("PistolSilencedBlueBoy", "weapons-PistolSilencedBlueBoy.jpg", "rare"),
-            new Weapons("AK-47Rebel", "weapons-AK47Rebel.jpg", "uncommon"),
-            new Weapons("SniperMSRTiger", "weapons-SniperMSRTiger.jpg", "uncommon")
+        List<Weapon> bottom4Images = new ArrayList<>(Arrays.asList(
+            new Weapon("SniperBlueFire", "weapons-SniperBlueFire.jpg", "epic"),
+            new Weapon("PistolSilencedBlueBoy", "weapons-PistolSilencedBlueBoy.jpg", "rare"),
+            new Weapon("AK-47Rebel", "weapons-AK47Rebel.jpg", "uncommon"),
+            new Weapon("SniperMSRTiger", "weapons-SniperMSRTiger.jpg", "uncommon")
         ));
         this.shop = new Shop(top2Images, bottom4Images, activeUser,ShopPane, WeaponTopLeftShop, WeaponTopRightShop, WeaponBottom1Shop, WeaponBottom2Shop, WeaponBottom3Shop, WeaponBottom4Shop);
         this.shop.addToShop();

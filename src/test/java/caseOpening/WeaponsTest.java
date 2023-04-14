@@ -6,18 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 
 public class WeaponsTest {
     
-    private Weapons validWeapon = new Weapons("AK-47", "weapons-AK47Rebel.jpg", "legendary");
+    private Weapon validWeapon = new Weapon("AK-47", "weapons-AK47Rebel.jpg", "legendary");
     @Test
     public void testConstructor(){
-        Weapons weapon = new Weapons("AK-47", "weapons-AK47Rebel.jpg", "legendary");
+        Weapon weapon = new Weapon("AK-47", "weapons-AK47Rebel.jpg", "legendary");
         assertEquals("AK-47", weapon.getName(), "Name should be AK-47");
         assertEquals("legendary", weapon.getRarity(), "Should return legendary");
         assertNotNull(weapon.getImage());
-        assertThrows(NullPointerException.class, () -> {new Weapons(null, null, null);}, "Invalid values");
+        assertThrows(NullPointerException.class, () -> {new Weapon(null, null, null);}, "Invalid values");
     }
 
     @Test

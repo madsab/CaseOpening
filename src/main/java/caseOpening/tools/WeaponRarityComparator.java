@@ -2,12 +2,12 @@ package caseOpening.tools;
 
 import java.util.Comparator;
 
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 
-public class WeaponRarityComparator implements Comparator<Weapons> {
+public class WeaponRarityComparator implements Comparator<Weapon> {
 
     @Override
-    public int compare(Weapons o1, Weapons o2) {
+    public int compare(Weapon o1, Weapon o2) {
         int o1Value = rarityToValue(o1.getRarity());
         int o2Value = rarityToValue(o2.getRarity());
         if (o1Value > o2Value){

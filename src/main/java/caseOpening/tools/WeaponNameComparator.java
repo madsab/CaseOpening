@@ -2,12 +2,12 @@ package caseOpening.tools;
 
 import java.util.Comparator;
 
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 
-public class WeaponNameComparator implements Comparator<Weapons>{
+public class WeaponNameComparator implements Comparator<Weapon>{
 
     @Override
-    public int compare(Weapons o1, Weapons o2) {
+    public int compare(Weapon o1, Weapon o2) {
         return o1.getName().compareTo(o2.getName());
     }
     

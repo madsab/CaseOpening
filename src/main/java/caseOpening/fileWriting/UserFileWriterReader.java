@@ -12,7 +12,7 @@ import java.util.List;
 
 import caseOpening.logIn.User;
 import caseOpening.tools.WeaponNameComparator;
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 
 
 public class UserFileWriterReader {
@@ -150,12 +150,12 @@ public class UserFileWriterReader {
                 if(usernameLine.equals(username.trim())){
                     String password = line.substring(line.indexOf("password")+ 9, line.indexOf(" ", line.indexOf("password"))); 
                     int keys = Integer.parseInt(line.substring(line.indexOf("keys")+ 5, line.indexOf(" ", line.indexOf("keys"))));
-                    List<Weapons> returnWeapons = new ArrayList<>();
+                    List<Weapon> returnWeapons = new ArrayList<>();
                     try {
                         String[] weapons = line.substring(line.indexOf("weapons") + 8).split(",");                        
                         for(String weapon : weapons){
                             String[] s = weapon.replace(")", "").split("\\(");
-                            returnWeapons.add(new Weapons(s[0], "weapons-" + s[0] + ".jpg", s[1]));
+                            returnWeapons.add(new Weapon(s[0], "weapons-" + s[0] + ".jpg", s[1]));
                         } 
                     } catch (Exception e){
                         
@@ -226,13 +226,13 @@ public class UserFileWriterReader {
     /**
      * adds a weapon to a Users inventory, sorts by weapon Name
      */
-    public void addWeapon(String username, Weapons weapon, String filePath){
+    public void addWeapon(String username, Weapon weapon, String filePath){
         @SuppressWarnings("unchecked")
-        List<Weapons> aquiredWeapons = (List<Weapons>)this.getFromUser("weapons", username, filePath);
+        List<Weapon> aquiredWeapons = (List<Weapon>)this.getFromUser("weapons", username, filePath);
         aquiredWeapons.add(weapon);
         aquiredWeapons.sort(new WeaponNameComparator());
         String weaponsAsString = "";
-        for( Weapons aquiredWeapon : aquiredWeapons){
+        for( Weapon aquiredWeapon : aquiredWeapons){
             weaponsAsString += aquiredWeapon.getName() + "(" + aquiredWeapon.getRarity() + "),";
         }
         changeUser(username, "weapons", weaponsAsString, filePath);
@@ -242,13 +242,13 @@ public class UserFileWriterReader {
     /**
      * removes a spesific weapon given that the User has that weapon
      */
-    public void removeWeapon(String username, Weapons weapon, String filePath){
+    public void removeWeapon(String username, Weapon weapon, String filePath){
         @SuppressWarnings("unchecked")
-        List<Weapons> aquiredWeapons = (List<Weapons>)getFromUser("weapons", username, filePath);
+        List<Weapon> aquiredWeapons = (List<Weapon>)getFromUser("weapons", username, filePath);
         aquiredWeapons.sort(new WeaponNameComparator());
         String weaponsAsString = "";
         boolean allreadyRemoved = false;
-        for( Weapons aquiredWeapon : aquiredWeapons){
+        for( Weapon aquiredWeapon : aquiredWeapons){
             if(!aquiredWeapon.getName().equals(weapon.getName()) || allreadyRemoved){
                 weaponsAsString += aquiredWeapon.getName() + "(" + aquiredWeapon.getRarity() + "),";
             } else {

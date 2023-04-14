@@ -2,7 +2,7 @@ package caseOpening.openingCases;
 
 import caseOpening.logIn.User;
 import caseOpening.weapons.Knife;
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
@@ -15,7 +15,7 @@ public class CaseSpinner {
     private Case activeCase;
     private int recursiveStopper = 0;
     private boolean hasChosenWeapon, isSpinning;
-    private Weapons currentWonWeapon;
+    private Weapon currentWonWeapon;
     private User activeUser;
     
     public CaseSpinner(String activeUsername, String filePath, Case activCase, ImageView ... weaponImages){
@@ -32,7 +32,7 @@ public class CaseSpinner {
      * <p>
      * Also takes in parameters {@code Pane}, {@code ImageView}, {@code Label} for showing User the weapon on screen
      */
-    public void spinCase(double duration, double speed, Pane pane, ImageView imageView, Label label){
+    public void  spinCase(double duration, double speed, Pane pane, ImageView imageView, Label label){
         isSpinning = true;
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(speed), e -> {
             for (ImageView image : imageList){
@@ -94,10 +94,10 @@ public class CaseSpinner {
      * <p>
      * even when run more than ones in the same code
      */
-    public Weapons getUserPrize(){
+    public Weapon getUserPrize(){
         if(!hasChosenWeapon){
             this.hasChosenWeapon = true;
-            Weapons weaponWon = activeCase.getPrizeWeapon();
+            Weapon weaponWon = activeCase.getPrizeWeapon();
             if(weaponWon.getRarity().equals("legendary")){
                 weaponWon = activeCase.pickRandomKnife();
             }

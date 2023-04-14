@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 import javafx.scene.image.Image;
 
-public class Knife extends Weapons{
+public class Knife extends Weapon{
 
     public Knife(String name, String weaponImage, String rarity) {
         super(name, weaponImage, rarity);

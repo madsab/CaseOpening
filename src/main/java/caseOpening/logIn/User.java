@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import caseOpening.fileWriting.UserFileWriterReader;
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 
 public class User {
     private String username, password;
     private int keys;
-    private List<Weapons> aqquiredWeapons = new ArrayList<>();
+    private List<Weapon> aqquiredWeapons = new ArrayList<>();
     private UserFileWriterReader fw = new UserFileWriterReader();
     private String filePath;
 
@@ -35,8 +35,8 @@ public class User {
             this.setPassword((String)fw.getFromUser("password", existingUsername, filePath));
             this.keys = (Integer)fw.getFromUser("keys", existingUsername, filePath);
             @SuppressWarnings("unchecked")
-            List<Weapons> weapons = ((List<Weapons>)fw.getFromUser("weapons", existingUsername, filePath));
-            for (Weapons weapon : weapons){
+            List<Weapon> weapons = ((List<Weapon>)fw.getFromUser("weapons", existingUsername, filePath));
+            for (Weapon weapon : weapons){
                 this.aqquiredWeapons.add(weapon);
             }
 
@@ -56,17 +56,17 @@ public class User {
         this.setPassword((String)fw.getFromUser("password", this.username, filePath));
         this.keys = (Integer)fw.getFromUser("keys", this.getUsername(), filePath);
         @SuppressWarnings("unchecked")
-        List<Weapons> weapons = ((List<Weapons>)fw.getFromUser("weapons", this.getUsername(), filePath));
-            for (Weapons weapon : weapons){
+        List<Weapon> weapons = ((List<Weapon>)fw.getFromUser("weapons", this.getUsername(), filePath));
+            for (Weapon weapon : weapons){
                 this.aqquiredWeapons.add(weapon);
             }
     }
 
-    public User(String username, String password, int keys, List<Weapons> weapons){
+    public User(String username, String password, int keys, List<Weapon> weapons){
         this.setUsername(username);
         this.setPassword(password);
         this.setKeys(keys);
-        for (Weapons weapon : weapons){
+        for (Weapon weapon : weapons){
             this.aqquiredWeapons.add(weapon);
         }
     }
@@ -89,7 +89,7 @@ public class User {
         return keys;
     }
 
-    public List<Weapons> getWeapons() {
+    public List<Weapon> getWeapons() {
         return aqquiredWeapons;
     }
 
@@ -133,7 +133,7 @@ public class User {
     }
 
 
-    public void addWeapon(Weapons weapon){
+    public void addWeapon(Weapon weapon){
         this.aqquiredWeapons.add(weapon);
         try{
             fw.addWeapon(this.getUsername(), weapon, this.filePath);
@@ -143,7 +143,7 @@ public class User {
         }
     }
 
-    public void removeWeapon(Weapons weapons){
+    public void removeWeapon(Weapon weapons){
         this.aqquiredWeapons.remove(weapons);
         try {
             fw.removeWeapon(this.getUsername(), weapons, this.filePath);
@@ -198,7 +198,7 @@ public class User {
     @Override
     public String toString() {
         String weaponString = "";
-        for (Weapons weapon : aqquiredWeapons){
+        for (Weapon weapon : aqquiredWeapons){
             weaponString += weapon.getName() + "(" + weapon.getRarity() + "),";
         }
         return "username:" + this.username + " password:"+this.password + " keys:" + this.keys + " weapons:" + weaponString;

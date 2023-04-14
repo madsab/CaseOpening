@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import caseOpening.fileWriting.UserFileWriterReader;
 import caseOpening.logIn.User;
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 
 public class UserFileWriterReaderTest {
     private UserFileWriterReader fileReaderWriter = new UserFileWriterReader();
@@ -41,15 +41,15 @@ public class UserFileWriterReaderTest {
     
     @Test
     public void testGetFromUser(){
-        Weapons testWeapon = new Weapons("AK-47", "weapons-AK47Rebel.jpg", "legendary");
+        Weapon testWeapon = new Weapon("AK-47", "weapons-AK47Rebel.jpg", "legendary");
         fileReaderWriter.addUser(testUser, testFilepath);
-        List<Weapons> userWeapons = new ArrayList<>();
+        List<Weapon> userWeapons = new ArrayList<>();
         userWeapons.add(testWeapon);
         fileReaderWriter.addWeapon(testUser.getUsername(), testWeapon, testFilepath);
         assertEquals("TestUser", fileReaderWriter.getFromUser("username", testUser.getUsername(), testFilepath));
         assertEquals("Testuser123", fileReaderWriter.getFromUser("password", testUser.getUsername(), testFilepath));
         assertEquals(5, fileReaderWriter.getFromUser("keys", testUser.getUsername(), testFilepath));
-        assertEquals(userWeapons.get(0).getName(), ((List<Weapons>)fileReaderWriter.getFromUser("weapons", testUser.getUsername(), testFilepath)).get(0).getName());
+        assertEquals(userWeapons.get(0).getName(), ((List<Weapon>)fileReaderWriter.getFromUser("weapons", testUser.getUsername(), testFilepath)).get(0).getName());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class UserFileWriterReaderTest {
         assertEquals(25, fileReaderWriter.getUser(testUser.getUsername(), testFilepath).getKeys());
         
         //Test change of weapons
-        Weapons testWeapon = new Weapons("AK47", "Ak4.jpg", "rare");
+        Weapon testWeapon = new Weapon("AK47", "Ak4.jpg", "rare");
         assertEquals(true, fileReaderWriter.getUser(testUser.getUsername(), testFilepath).getWeapons().isEmpty(), "Weapons should be empty on start");
         fileReaderWriter.changeUser(testUser.getUsername(), "weapons", testWeapon.toString(), testFilepath);
         assertEquals(testWeapon.getName(), fileReaderWriter.getUser(testUser.getUsername(), testFilepath).getWeapons().get(0).getName(), "Weapons should be only AK47");

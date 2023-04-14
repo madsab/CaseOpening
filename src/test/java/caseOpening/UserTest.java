@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import caseOpening.logIn.User;
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Weapon;
 
 public class UserTest {
     
@@ -52,14 +52,14 @@ public class UserTest {
     } 
     @Test
     public void testAddWeapon() {
-        Weapons weapon = new Weapons("WeaponName", "WeaponImage", "Rarity");
+        Weapon weapon = new Weapon("WeaponName", "WeaponImage", "Rarity");
         validUser.addWeapon(weapon);
         assertTrue(validUser.getWeapons().contains(weapon), "User weapons should contain added weapon");
     }
 
     @Test
     public void testRemoveWeapon() {
-        Weapons weapon = new Weapons("WeaponName", "WeaponImage", "Rarity");
+        Weapon weapon = new Weapon("WeaponName", "WeaponImage", "Rarity");
         validUser.addWeapon(weapon);
         validUser.removeWeapon(weapon);
         assertFalse(validUser.getWeapons().contains(weapon), "User weapons should not contain the removed weapon");
