@@ -6,13 +6,13 @@ import java.io.InputStream;
 
 import javafx.scene.image.Image;
 
-public class Weapons {
+public class Weapon {
     protected String name;
     protected String weaponImage;
     protected String rarity;
     protected int valueInKeys;
 
-    public Weapons(String name, String weaponImage, String rarity){
+    public Weapon(String name, String weaponImage, String rarity){
         this.name = name;
         this.weaponImage = weaponImage;
         this.rarity = rarity;

@@ -3,22 +3,23 @@ package caseOpening.openingCases;
 import java.util.ArrayList;
 import java.util.List;
 
-import caseOpening.weapons.Weapons;
+import caseOpening.weapons.Knife;
+import caseOpening.weapons.Weapon;
 
 public abstract class Case {
-    protected List<Weapons> availableWeapons = new ArrayList<>();
-    protected List<Weapons> availableKnifes = new ArrayList<>();
+    protected List<Weapon> availableWeapons = new ArrayList<>();
+    protected List<Knife> availableKnifes = new ArrayList<>();
 
-    public Case(List<Weapons> availableWeapons, List<Weapons> availableKnifes){
-        for (Weapons weapon : availableWeapons){
+    public Case(List<Weapon> availableWeapons, List<Knife> availableKnifes){
+        for (Weapon weapon : availableWeapons){
             this.availableWeapons.add(weapon);
         }
-        for (Weapons weapon : availableKnifes){
+        for (Knife weapon : availableKnifes){
             this.availableKnifes.add(weapon);
         }
     }
 
-    public Weapons getPrizeWeapon(){
+    public Weapon getPrizeWeapon(){
         int winningNumber = (int)Math.floor(Math.random()*1000+1);
         if(winningNumber < 75){
             return pickrandomWeapon("legendary");
@@ -33,10 +34,10 @@ public abstract class Case {
         }
     }
 
-    private Weapons pickrandomWeapon(String rarity){
-        List<Weapons> weaponsOfThisRarity = new ArrayList<>();
+    private Weapon pickrandomWeapon(String rarity){
+        List<Weapon> weaponsOfThisRarity = new ArrayList<>();
         //Add all weapons of a spesific rarity
-        for (Weapons weapon : availableWeapons){
+        for (Weapon weapon : availableWeapons){
             if(weapon.getRarity().equals(rarity)){
                 weaponsOfThisRarity.add(weapon);
             }
@@ -51,7 +52,7 @@ public abstract class Case {
         }
     }
 
-    public Weapons pickRandomKnife(){
+    public Weapon pickRandomKnife(){
         int choosenIndex = (int)Math.floor(Math.random()*availableKnifes.size());
         return availableKnifes.get(choosenIndex);
     }
