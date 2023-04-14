@@ -26,12 +26,6 @@ public class CreateAccountController {
             loginUser.addUserToFile("src/main/resources/caseOpening/UserOverview.txt");
             createdUserResponse.setText("User created");
             createdUserResponse.setStyle("-fx-text-fill: green;");
-            fr.overrideFile(loginUser.getUsername(), "src/main/resources/caseOpening/ActiveUser.txt");
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("caseOpening/homePage.fxml"));
-            Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
 
         } catch (Exception e){
             if(e.getClass().equals(IllegalArgumentException.class)){
