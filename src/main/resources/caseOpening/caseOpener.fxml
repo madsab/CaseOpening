@@ -131,7 +131,7 @@
       </ImageView>
       <Pane fx:id="noMoreKeysPane" layoutX="148.0" layoutY="14.0" prefHeight="290.0" prefWidth="310.0" style="-fx-background-color: #2a353b; -fx-border-color: white; visibility: false;">
          <children>
-            <Label fx:id="noMoreKeysLabel" alignment="TOP_CENTER" layoutX="25.0" layoutY="51.0" prefHeight="122.0" prefWidth="260.0" text="You have no more keys&#10;&#10;Sell you weapons at the &#10;shooting range to earn more&#10;" textFill="WHITE">
+            <Label fx:id="noMoreKeysLabel" alignment="TOP_CENTER" layoutX="25.0" layoutY="51.0" prefHeight="122.0" prefWidth="260.0" text="You have no more keys&#10;&#10;Sell you weapons at the &#10;shop to earn more&#10;" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>
